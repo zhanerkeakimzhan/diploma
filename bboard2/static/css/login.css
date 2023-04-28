@@ -1,0 +1,67 @@
+.my-4 {
+    margin-top: 0.5rem!important;
+    margin-bottom: 2.5rem!important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #566F9E;
+    border-color: #566F9E;
+}
+
+.mb-4 {
+    margin-bottom: 2.3rem!important;
+}
+
+a {
+    color: #566F9;
+    text-decoration: underline;
+}
+
+.admission_component .center_logo img {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #F2F4FA;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.main-button a {
+    display: inline-block;
+    background-color: #566F9E;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 25px;
+    border-radius: 20px;
+    transition: all .3s;
+}

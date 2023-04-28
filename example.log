@@ -1,0 +1,39 @@
+WARNING:django.request:Not Found: //download/1//
+DEBUG:PIL.TiffImagePlugin:tag: ImageWidth (256) - type: short (3) - value: b'\th'
+DEBUG:PIL.TiffImagePlugin:tag: ImageLength (257) - type: short (3) - value: b'\x048'
+DEBUG:PIL.TiffImagePlugin:tag: Software (305) - type: string (2) Tag Location: 46 - Data Location: 74 - value: <table: 38 bytes>
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00p'
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ImageWidth (256) - type: short (3) - value: b'\t`'
+DEBUG:PIL.TiffImagePlugin:tag: ImageLength (257) - type: short (3) - value: b'\x048'
+DEBUG:PIL.TiffImagePlugin:tag: Software (305) - type: string (2) Tag Location: 46 - Data Location: 74 - value: <table: 38 bytes>
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00p'
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ImageWidth (256) - type: short (3) - value: b'\t`'
+DEBUG:PIL.TiffImagePlugin:tag: ImageLength (257) - type: short (3) - value: b'\x048'
+DEBUG:PIL.TiffImagePlugin:tag: Software (305) - type: string (2) Tag Location: 46 - Data Location: 74 - value: <table: 38 bytes>
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00p'
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x00\x00'
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+ERROR:django.request:Internal Server Error: //download_presentation/1//
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 135, in download_presentation
+    pre_name = presentation.file_field.name
+AttributeError: 'FieldFile' object has no attribute 'file_field'
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\models.py changed, reloading.

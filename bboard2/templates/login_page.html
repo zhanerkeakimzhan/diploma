@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <!-- Обязательные метатеги -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% load static %}
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- fonts Montserrat -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+  <link rel="icon" href="{% static 'images/su.png' %}" type="image/x-icon">
+
+  <title>Вход в систему</title>
+
+<!--    or this variant-->
+<!--    <title>Satbayev University</title>-->
+
+</head>
+
+<body>
+<style>
+  .main-button a {
+    display: inline-block;
+    background-color: #566F9E;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700!important;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 25px;
+    border-radius: 5px;
+    transition: all .3s;
+    width: 426px;
+}
+
+a {
+    text-decoration: none !important;
+    margin: 0;
+    border: 0;
+    outline: 0;
+}
+
+body {
+    background-color: #F2F4FA;
+}
+</style>
+
+  <section class="vh-100" style="background-color: #F2F4FA;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+          <div class="admission_component">
+            <div class="center_logo"><img src="{% static 'images/logo.png' %}"></div>
+          </div>
+
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+
+              <h3 class="mb-2">Добро пожаловать</h3>
+              <h>Если вы зарегистрированы в системе, войдите в личный кабинет</h>
+
+              <hr class="my-4">
+
+              <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="Login" name="username">
+                  <label for="floatingInput">Логин</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                  <label for="floatingPassword">Пароль</label>
+                </div>
+
+                <p>
+                {% if error %}
+<!--                  <p><strong>{{ error }}</strong></p>-->
+                  <label class="error"><strong>{{ error }}</strong></label>
+                {% endif %}
+                </p>
+
+                <div class="form-check mb-4">
+                  <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                  <label class="form-check-label" for="rememberPasswordCheck">Запомнить пароль</label>
+                </div>
+
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-login fw-bold" type="submit" >Войти</button>
+                </div>
+
+                <div class="text-center my-3">
+                  <a1 class="small">Забыли пароль?</a1>
+                  <a class="small" href="{% url 'forgot' %}">Сбросить сейчас</a>
+                </div>
+              </form>
+
+              <div class="d-grid mb-2">
+                <h3 class="mb-2"></h3>
+                <h3 class="mb-2"></h3>
+                <h3 class="mb-2"></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </section>
+
+<!-- Вариант 1: Bootstrap в связке с Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

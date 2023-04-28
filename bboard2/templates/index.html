@@ -1,0 +1,212 @@
+{% extends 'basic.html' %}
+{% load static i18n %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+
+{% block title  %} Главная страница {% endblock title %}
+
+{% block content %}
+
+<style>
+.section {
+    padding-top: 30px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
+* {
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    margin: 0;
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    color: var(--bs-body-color);
+    text-align: var(--bs-body-text-align);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+:root {
+    --swiper-navigation-size: 44px;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+::selection {
+    background: #7a6ad8;
+    color: #fff;
+}
+@media (min-width: 1400px)
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1320px;
+}
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+div {
+    display: block;
+}
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(1.5 * var(--bs-gutter-x));
+}
+@media (min-width: 992px)
+.col-lg-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+}
+.row>* {
+    flex-shrink: 0;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-top: var(--bs-gutter-y);
+}
+div{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+.services .service-item .icon {
+    width: 140px;
+    height: 140px;
+    display: inline-block;
+    text-align: center;
+    line-height: 140px;
+    background-color: #566F9E;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: -65px;
+}
+.services .service-item .icon img {
+    max-width: 50px;
+    transition: all .2s;
+}
+
+<!--.services .service-item .main-content {-->
+<!--    border-radius: 25px;-->
+<!--    padding: 80px 30px 50px 30px;-->
+<!--    background-color: white;-->
+<!--    margin-bottom: 30px;-->
+<!--    margin-right: 80px;-->
+<!--    transition: all .4s;-->
+<!--}-->
+<!--.services .service-item {-->
+<!--    position: relative;-->
+<!--    margin-top: 95px;-->
+<!--}-->
+
+.services .service-item .main-content {
+    border-radius: 25px;
+    padding: 80px 30px 50px 40px;
+    background-color: white;
+    margin-bottom: 5px;
+    margin-right: 50px;
+    transition: all .4s;
+}
+.services .service-item {
+    position: relative;
+    margin-top: 50px;
+}
+
+.main-button a {
+    display: inline-block;
+    background-color: #566F9E;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 25px;
+    border-radius: 20px;
+    transition: all .3s;
+}
+a {
+    text-decoration: none !important;
+    margin: 0;
+    border: 0;
+    outline: 0;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-top: -15px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+h6 {
+    color: white;
+}
+
+</style>
+
+<div class="services section" id="services">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="service-item">
+<!--          <div class="icon">-->
+<!--            <img src="{% static 'images/add-students.png' %}" alt="online degrees">-->
+<!--          </div>-->
+          <div class="main-content">
+            <h4>Студенты</h4>
+            <p>На этой странице вы можете найти список всех студентов-дипломников.</p>
+            <div class="main-button">
+              <a href="{% url 'students_list' %}">Перейти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="service-item">
+<!--          <div class="icon">-->
+<!--            <img src="{% static 'images/add-students.png' %}" alt="short courses">-->
+<!--          </div>-->
+          <div class="main-content">
+            <h4>Члены комиссии</h4>
+            <p>На этой странице вы можете найти список всех членов комиссии.</p>
+            <div class="main-button">
+              <a href="#">Перейти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="service-item">
+<!--          <div class="icon">-->
+<!--            <img src="{% static 'images/add-students.png' %}" alt="web experts">-->
+<!--          </div>-->
+          <div class="main-content">
+            <h4>Документы</h4>
+            <p>На этой странице вы можете найти все документы.</p>
+            <div class="main-button">
+              <a href="#">Перейти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

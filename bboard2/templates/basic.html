@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static i18n  %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/basic.css' %}" type="text/css">
+    <link rel="icon" href="{% static 'images/su.png' %}" type="image/x-icon">
+<!--    <link rel="stylesheet" href="{% static 'css/edit_stud.css' %}" type="text/css">-->
+
+
+    <title>
+        {% block title  %}
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    {% block header %}
+    <nav id="navbar" class="">
+      <div class="nav-wrapper">
+        <!-- Navbar Logo -->
+        <div class="logo">
+          <!-- Logo Placeholder for Inlustration -->
+          <a href="{% url 'index' %}"><img src="{% static 'images/logo2.png' %}" alt="" width="170px"></a>
+        </div>
+
+        <!-- Navbar Links -->
+        <ul class="right" id="menu">
+<!--            <li><a href="#home">Home</a></li>-->
+            <li><a >{{ username }} <img src="{% static 'images/profile.png' %}" alt="" width="30px"></a></li>
+
+            {% if username %}
+                <li><a href="{% url 'logout' %}"> Выйти <img src="{% static 'images/eee.png' %}" alt="" width="25px"></a></li>
+            {% endif %}
+
+
+
+<!--            <select class="change-lang">-->
+<!--                <option value="kz">Каз</option>-->
+<!--                <option value="ru">Рус</option>-->
+<!--                <option value="en">ENG</option>-->
+<!--            </select>-->
+
+<!--            <li><a href="{% url 'login' %}">Выйти <img src="{% static 'images/eee.png' %}" alt="" width="25px"></a></li>-->
+
+
+<!--            <li class="dropdown">-->
+<!--              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RU<span class="caret"></span></a>-->
+<!--              <ul class="dropdown-menu">-->
+<!--                <li><a href="#">KZ</a></li>-->
+<!--                <li><a href="#">Eng</a></li>-->
+<!--              </ul>-->
+<!--            </li>-->
+        </ul>
+      </div>
+    </nav>
+
+<!--    &lt;!&ndash; Menu Icon &ndash;&gt;-->
+<!--    <div class="menuIcon">-->
+<!--      <span class="icon icon-bars"></span>-->
+<!--      <span class="icon icon-bars overlay"></span>-->
+<!--    </div>-->
+
+<!--    <div class="overlay-menu">-->
+<!--      <ul id="menu">-->
+<!--          <li><a href="#home">Home</a></li>-->
+<!--          <li><a href="#services">Services</a></li>-->
+<!--          <li><a href="{% url 'login' %}">Выйти</a></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    {% endblock header %}
+
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>
