@@ -1,5 +1,6 @@
 import datetime
 from django.db import models
+from django.contrib.auth.models import User
 
 class Students(models.Model):
     img = models.ImageField(upload_to='images')
@@ -46,6 +47,7 @@ class Commissions(models.Model):
     number = models.CharField('Номер телефона', max_length=12, default=' ')
     email = models.CharField('Почта', max_length=50, default=' ')
     initials = models.CharField('Инициалы', max_length=100, default=' ')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=' ')
 
     def __str__(self):
         return self.name
