@@ -25,7 +25,7 @@ class Students(models.Model):
     advisor = models.CharField('Руководитель', max_length=100, default=' ')
     advisor_scientific_degree = models.CharField('Степень руководителя', max_length=100, default=' ')
     advisor_job = models.CharField('Место работы руководителя', max_length=100, default=' ')
-    opinion = models.CharField('Особые мнение членов комиссии', )
+    # opinion = models.CharField('Особые мнение членов комиссии', )
 
     def __str__(self):
         return self.name

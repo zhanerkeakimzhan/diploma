@@ -24,19 +24,31 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('index')
+            if user.groups.filter(name='secretary').exists():
+                return redirect('index')
+            elif user.groups.filter(name='commission').exists():
+                return redirect('com_main')
+            else:
+                return redirect('bboard')
         else:
             return render(request, 'login_page.html', {'error': 'Неправильное имя пользователя или пароль'})
     else:
         return render(request, 'login_page.html')
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='secretary').exists())
 def index(request):
     return render(request, 'index.html', {'username': auth.get_user(request).username})
 
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='commission').exists())
 def com_main(request):
-    return render(request, 'com_main.html', {'username': auth.get_user(request).username})
+    students = Students.objects.all()
+    context = {
+        'username': auth.get_user(request).username,
+        'students': students
+    }
+    return render(request, 'com_main.html', context)
 
 def logout_page(request):
     logout(request)
@@ -56,6 +68,16 @@ def student_page(request, id):
     }
 
     return render(request, 'student_page.html', context)
+
+def com_stud_page(request, id):
+    student = get_object_or_404(Students, id=id)
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student
+    }
+
+    return render(request, 'com_stud_page.html', context)
+
 
 count = 0
 def download_document(request, stud_id):
