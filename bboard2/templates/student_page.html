@@ -2,7 +2,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
 
-{% block title  %} Student Page {% endblock title %}
+{% block title  %} Страница студента {{student.lastname}} {{student.name}} {% endblock title %}
 
 {% block content %}
 
@@ -103,7 +103,7 @@ background: #f2f4fa;
                                     <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
                                     <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
                                     <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
-                                    <tr><td class="active">№ удостоверения личности/паспорта::</td><td>{{student.id_card}}</td></tr>
+                                    <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
                                     <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' stud_id=student.id %}"> Скачать презентацию </a></td></tr>
                                     <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
                                     <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>

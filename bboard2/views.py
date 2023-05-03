@@ -60,6 +60,15 @@ def logout_page(request):
 def commissions(request):
     return render(request, 'commissions.html', {'username': auth.get_user(request).username})
 
+def com_stud_page(request, id):
+    student = get_object_or_404(Students, id=id)
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student
+    }
+
+    return render(request, 'com_stud_page.html', context)
+
 def student_page(request, id):
     student = get_object_or_404(Students, id=id)
     context = {

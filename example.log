@@ -37,6 +37,7 @@ INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\vi
 DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
 DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\models.py changed, reloading.
+<<<<<<< HEAD
 DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
 ERROR:django.request:Internal Server Error: //add/
 Traceback (most recent call last):
@@ -139,3 +140,11 @@ Traceback (most recent call last):
   File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
     raise ValueError(
 ValueError: The 'img' attribute has no file associated with it.
+=======
+WARNING:django.request:Not Found: //download/2//
+WARNING:django.request:Not Found: //download/2//
+INFO:django.utils.autoreload:C:\Users\ASUS\virtualenv\diploma\bboard2\views.py changed, reloading.
+WARNING:django.request:Not Found: //download/2//
+WARNING:django.request:Not Found: //download/1//
+INFO:django.utils.autoreload:C:\Users\ASUS\virtualenv\diploma\bboard2\views.py changed, reloading.
+>>>>>>> a0b1a5d4dc16a738a5c163c153b2cd96b254a94e

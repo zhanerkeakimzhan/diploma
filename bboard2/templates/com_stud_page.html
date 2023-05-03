@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'basic.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
@@ -122,4 +123,130 @@ background: #f2f4fa;
         </div>
     </div>
 </div>
+=======
+{% extends 'basic.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
+
+{% block title  %} Страница студента {{student.lastname}} {{student.name}} {% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+
+<br><br><br><br><br>
+
+<style>
+body{
+background: #f2f4fa;
+}
+
+#main {
+ background-color: #f2f4fa;
+ padding: 20px;
+ -webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ -ms-border-radius: 4px;
+ -o-border-radius: 4px;
+ border-radius: 4px;
+ border-bottom: 4px solid #ddd;
+}
+#real-estates-detail #author img {
+ -webkit-border-radius: 100%;
+ -moz-border-radius: 100%;
+ -ms-border-radius: 100%;
+ -o-border-radius: 100%;
+ border-radius: 100%;
+ border: 5px solid #ecf0f1;
+ margin-bottom: 10px;
+}
+#real-estates-detail .sosmed-author i.fa {
+ width: 30px;
+ height: 30px;
+ border: 2px solid #bdc3c7;
+ color: #bdc3c7;
+ padding-top: 6px;
+ margin-top: 10px;
+}
+.panel-default .panel-heading {
+ background-color: #fff;
+}
+#real-estates-detail .slides li img {
+ height: 450px;
+}
+.label-warning {
+    background-color: #2776B8;
+}
+</style>
+
+<div class="container">
+    <div id="main">
+        <div class="row" id="real-estates-detail">
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="{% url 'com_main' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
+                        <header class="panel-title">
+                            <div class="text-center">
+                                <strong>Информация о Студенте</strong>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center" id="author">
+<!--                            <img width="220px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">-->
+                            <img width="220px" src="{{ student.img.url }}">
+                            <h3>{{student.lastname}} {{student.name}} {{student.middlename}}</h3>
+                            <small class="label label-warning">Бакалавр</small>
+                            <h3></h3>
+<!--                            <p>Я простой Русский пацан и мне всё по барабану.</p>-->
+                            <p class="sosmed-author">
+                            <div class="btn-group">
+<!--                                <a href="{% url 'edit_stud' %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>-->
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="detail">
+                                <br><br>
+                                <table class="table table-th-block">
+                                    <tbody>
+                                    <tr><td class="active"><form method="POST">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <button type="submit">Save Time</button>
+                                          </form></td></tr>
+                                    <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
+                                    <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
+                                    <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
+                                    <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
+                                    <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
+                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' stud_id=student.id %}"> Скачать презентацию </a></td></tr>
+                                    <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
+                                    <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
+                                    <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
+                                    <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> Скачать Протокол 2 </a></td></tr>
+<!--                                    <tr><td class="active">Бірбәле:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>-->
+<!--                                    <tr><td class="active">Плагин рейтинга:</td><td><a href="https://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>-->
+                                    </tbody>
+                                </table>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+>>>>>>> a0b1a5d4dc16a738a5c163c153b2cd96b254a94e
 {% endblock content %}
