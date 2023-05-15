@@ -94,11 +94,6 @@ background: #f2f4fa;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active"><form method="POST">
-                                            {% csrf_token %}
-                                            {{ form.as_p }}
-                                            <button type="submit">Save Time</button>
-                                          </form></td></tr>
                                     <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
                                     <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
                                     <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
@@ -108,9 +103,30 @@ background: #f2f4fa;
                                     <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
                                     <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
                                     <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
+                                    {% if defense_start_time and defense_end_time %}
+                                        <p>Время начала защиты: {{ defense_start_time }}</p>
+                                        <p>Время окончания защиты: {{ defense_end_time }}</p>
+                                    {% endif %}
+
+                                    <form method="post" class="form-inline">
+                                        {% csrf_token %}
+                                        <div class="form-group mr-4">
+                                            <tr><td class="active"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2">Время начала:</label></td><td>
+                                            {{ defense_form.start_time }}</td></tr>
+                                        </div>
+                                        <div class="form-group">
+                                            <tr><td class="active"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2">Время окончания:</label></td><td>
+                                            {{ defense_form.end_time }}</td></tr>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <tr><td class="active">Выберите комментарий: </td><td>{{ defense_form.comment }}</td></tr>
+                                            </div>
+                                        </div>
+
+                                        <tr><td class="active"><button type="submit" class="btn btn-primary ml-4">Сохранить</button></td></tr>
+                                    </form>
                                     <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> Скачать Протокол 2 </a></td></tr>
-<!--                                    <tr><td class="active">Бірбәле:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>-->
-<!--                                    <tr><td class="active">Плагин рейтинга:</td><td><a href="https://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>-->
                                     </tbody>
                                 </table>
                                 <br><br>

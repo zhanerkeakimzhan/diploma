@@ -2,10 +2,13 @@ import logging
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
+from pyexpat.errors import messages
+from .forms import DefenseForm, GradeForm
 from .models import Students
+from .models import Defense
 from docxtpl import DocxTemplate
 from .models import Commissions
-from .models import Chairmans
+from .models import Chairmans, Secretary
 from .models import Grade
 from django.contrib import auth
 import io
@@ -29,7 +32,7 @@ def login_page(request):
             elif user.groups.filter(name='commission').exists():
                 return redirect('com_main')
             else:
-                return redirect('bboard')
+                return redirect('login')
         else:
             return render(request, 'login_page.html', {'error': 'Неправильное имя пользователя или пароль'})
     else:
@@ -60,33 +63,70 @@ def logout_page(request):
 def commissions(request):
     return render(request, 'commissions.html', {'username': auth.get_user(request).username})
 
-def com_stud_page(request, id):
-    student = get_object_or_404(Students, id=id)
-    context = {
-        'username': auth.get_user(request).username,
-        'student': student
-    }
-
-    return render(request, 'com_stud_page.html', context)
+# def com_stud_page(request, id):
+#     student = get_object_or_404(Students, id=id)
+#     context = {
+#         'username': auth.get_user(request).username,
+#         'student': student
+#     }
+#
+#     return render(request, 'com_stud_page.html', context)
 
 def student_page(request, id):
     student = get_object_or_404(Students, id=id)
+    defense_form = DefenseForm(request.POST or None)
+    if defense_form.is_valid():
+        defense = defense_form.save(commit=False)
+        defense.student = student
+        defense.save()
+        request.session['defense_start_time'] = defense.start_time.isoformat()
+        request.session['defense_end_time'] = defense.end_time.isoformat()
+        messages.success(request, 'Время начала и окончания защиты успешно сохранено.')
+        return redirect('student_info', id=id)
+    else:
+        defense_start_time = request.session.get('defense_start_time')
+        defense_end_time = request.session.get('defense_end_time')
+        if defense_start_time and defense_end_time:
+            defense_form.initial['start_time'] = defense_start_time
+            defense_form.initial['end_time'] = defense_end_time
     context = {
         'username': auth.get_user(request).username,
-        'student': student
+        'student': student,
+        'defense_form': defense_form
     }
 
     return render(request, 'student_page.html', context)
 
 def com_stud_page(request, id):
     student = get_object_or_404(Students, id=id)
+    user_profile = request.user.userprofile
+    # commission_choices = [(user_profile.commission.id, user_profile.commission.name)]
+    commission = user_profile.commission.id
+
+    if request.method == 'POST':
+        # form = GradeForm(request.POST or None, commission_choices=commission_choices)
+        form = GradeForm(request.POST)
+        # form.fields['commission'].initial = request.POST.get('commission_id')
+        if form.is_valid():
+            value = request.POST.get('value')
+            question = request.POST.get('question')
+            # grade = form.save(commit=False)
+            # grade.commission = commission
+            # grade.student = student
+            # grade.student = form.cleaned_data['student']
+            grade = Grade(value=value, question=question)
+            grade.save()
+            return redirect('com_stud_page')
+    else:
+        # form = GradeForm(commission_choices=commission_choices, instance=Grade())
+        form = GradeForm()
     context = {
         'username': auth.get_user(request).username,
-        'student': student
+        'student': student,
+        'form': form,
     }
 
     return render(request, 'com_stud_page.html', context)
-
 
 count = 0
 def download_document(request, stud_id):
@@ -102,6 +142,7 @@ def download_document(request, stud_id):
     commission3 = get_object_or_404(Commissions, id=3)
     commission4 = get_object_or_404(Commissions, id=4)
     chairman = get_object_or_404(Chairmans, id=1)
+    secretary = get_object_or_404(Secretary, id=1)
     context = {
         'student': student
     }
@@ -149,6 +190,7 @@ def download_document(request, stud_id):
     thirdinitials = commission3.initials
     fourthinitials = commission4.initials
     fifthinitials = chairman.initials
+    sixthinitials = secretary.initials
 
     starttimehour = student.time.hour
     starttimeminute = student.time.minute
@@ -178,6 +220,7 @@ def download_document(request, stud_id):
         "thirdinitials": thirdinitials,
         "fourthinitials": fourthinitials,
         "fifthinitials": fifthinitials,
+        "sixthinitials":sixthinitials,
         "d1": d1,
         "starttimehour": starttimehour,
         "starttimeminute": starttimeminute,
@@ -228,7 +271,6 @@ def edit_stud_page(request):
 def forgot_pw(request):
     return render(request, 'forgot_pw.html')
 
-
 def documents(request):
     students = Students.objects.all()
     return render(request, 'document_page.html', {'students': students})
@@ -240,16 +282,6 @@ def documents_second(request):
 def documents_third(request):
     students = Students.objects.all()
     return render(request, 'document_page_third.html', {'students': students, 'username': auth.get_user(request).username})
-
-# def students(request):
-#     return render(request, 'students.html')
-
-# def commissions(request):
-#     return render(request, 'commissions.html')
-
-# def documents(request):
-#     return render(request, 'documents.html')
-
 
 def students(request):
     students = Students.objects.all()
@@ -266,8 +298,10 @@ def add_student(request):
         middlename = request.POST.get('middlename')
         birthday = request.POST.get('birthday')
         diploma_title = request.POST.get('diploma_title')
+        img = request.FILES['images']
 
         stud = Students(
+            img = img,
             name = name,
             lastname = lastname,
             middlename = middlename,
@@ -290,7 +324,7 @@ def delete_student(request, stud_id):
         'stud': stud,
     }
     return render('students_list', context)
-
+#
 # class GradeView(FormView):
 #     template_name = 'grades.html'
 #     form_class = GradeForm
@@ -300,8 +334,8 @@ def delete_student(request, stud_id):
 #         grade.commission = self.request.user
 #         grade.save()
 #         return super().form_valid(form)
-
-
+#
+#
 # def login_page(request):
 #     if request.method == 'POST':
 #         username = request.POST['username']
@@ -320,7 +354,7 @@ def delete_student(request, stud_id):
 #             return render(request, 'login_page.html', {'error': 'Неправильное имя пользователя или пароль'})
 #     else:
 #         return render(request, 'login_page.html')
-
+#
 # @login_required(login_url='/login/')
 # def index(request):
 #     if request.user.is_secretary:
@@ -334,7 +368,7 @@ def delete_student(request, stud_id):
 #         return render(request, 'commissions.html', {'username': auth.get_user(request).username})
 #     else:
 #         return redirect('login_page.html')
-
+#
 # def is_secretary(user):
 #     return user.groups.filter(name='secretaries').exists()
 #
