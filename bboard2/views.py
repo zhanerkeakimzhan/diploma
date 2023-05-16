@@ -100,33 +100,75 @@ def student_page(request, id):
 def com_stud_page(request, id):
     student = get_object_or_404(Students, id=id)
     user_profile = request.user.userprofile
-    # commission_choices = [(user_profile.commission.id, user_profile.commission.name)]
-    commission = user_profile.commission.id
+    commission = get_object_or_404(Commissions, id=user_profile.commission.id)
 
-    if request.method == 'POST':
-        # form = GradeForm(request.POST or None, commission_choices=commission_choices)
-        form = GradeForm(request.POST)
-        # form.fields['commission'].initial = request.POST.get('commission_id')
-        if form.is_valid():
-            value = request.POST.get('value')
-            question = request.POST.get('question')
-            # grade = form.save(commit=False)
-            # grade.commission = commission
-            # grade.student = student
-            # grade.student = form.cleaned_data['student']
-            grade = Grade(value=value, question=question)
-            grade.save()
-            return redirect('com_stud_page')
-    else:
-        # form = GradeForm(commission_choices=commission_choices, instance=Grade())
-        form = GradeForm()
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student
+    }
+
+    try:
+        grade = Grade.objects.get(commission=commission, student=student)
+        if grade.is_filled:
+            return redirect('com_stud_page_second', id=id)
+    except Grade.DoesNotExist:
+        pass
+
+    return render(request, 'com_stud_page.html', context)
+
+def add_grade(request, id):
+    student = get_object_or_404(Students, id=id)
+    user_profile = request.user.userprofile
+    commission = get_object_or_404(Commissions, id=user_profile.commission.id)
+    question = request.POST.get("question")
+    value = request.POST.get("value")
+
+    add_data = Grade(commission=commission, student=student, question=question,value=value)
+    add_data.save()
+
+    add_data.is_filled = True
+    add_data.save()
+
+    request.session['grade_data'] = {
+        'student': student.id,
+        'commission': commission.id,
+        'question': question,
+        'value': value
+    }
+    #
+    # context = {
+    #     'username': auth.get_user(request).username,
+    #     'student': student,
+    #     'grade_data': request.session.get('grade_data')
+    # }
+    # return HttpResponse(f"student:{student} <br> commission:{commission} <br> question:{question} <br> value:{value}")
+    # return render(request, 'com_stud_page_second.html', context)
+    return redirect('com_stud_page_second', id=id)
+
+def com_stud_page_second(request, id):
+    student = get_object_or_404(Students, id=id)
+    student_id = student.id
+
+    user_profile = request.user.userprofile
+    commission = get_object_or_404(Commissions, id=user_profile.commission.id)
+    commission_id = commission.id
+
+    grade_data = request.session.get('grade_data')
+
+    grade = Grade.objects.get(commission=commission_id, student=student_id)
+
+    question = grade.question
+    value = grade.value
+
     context = {
         'username': auth.get_user(request).username,
         'student': student,
-        'form': form,
+        'grade_data': grade_data,
+        'question': question,
+        'value': value
     }
 
-    return render(request, 'com_stud_page.html', context)
+    return render(request, 'com_stud_page_second.html', context)
 
 count = 0
 def download_document(request, stud_id):
@@ -248,8 +290,133 @@ def download_document(request, stud_id):
     response.write(document_bytes)
     return response
 
-def download_presentation(request, stud_id):
+countsecond = 0
+def download_document1(request, stud_id):
+    global countsecond
+    countsecond += 1
+    locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+    current_time = datetime.datetime.today()
+    today = date.today()
+    logging.basicConfig(filename='example2.log', level=logging.DEBUG)
     student = get_object_or_404(Students, id=stud_id)
+    commission1 = get_object_or_404(Commissions, id=1)
+    commission2 = get_object_or_404(Commissions, id=2)
+    commission3 = get_object_or_404(Commissions, id=3)
+    commission4 = get_object_or_404(Commissions, id=4)
+    chairman = get_object_or_404(Chairmans, id=1)
+    secretary = get_object_or_404(Secretary, id=1)
+    context = {
+        'student': student
+    }
+    name = student.name
+    lastname = student.lastname
+    middlename = student.middlename
+    speciality = student.speciality
+    diplomatitle = student.diploma_title
+    advisor = student.advisor
+    advisor_scientific_degree = student.advisor_scientific_degree
+    grade = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
+
+    letter_grade = ' '
+    if 100 >= grade >= 95:
+        letter_grade = 'A'
+    elif 95 > grade >= 90:
+        letter_grade = 'A-'
+    elif 90 > grade >= 85:
+        letter_grade = 'B+'
+    elif 85 > grade >= 80:
+        letter_grade = 'B'
+    elif 80 > grade >= 75:
+        letter_grade = 'B-'
+    elif 75 > grade >= 70:
+        letter_grade = 'C+'
+    elif 70 > grade >= 65:
+        letter_grade = 'C'
+    elif 65 > grade >= 60:
+        letter_grade = 'C-'
+    elif 60 > grade >= 55:
+        letter_grade = 'D+'
+    elif 55 > grade >= 50:
+        letter_grade = 'D'
+    elif 50 > grade >= 25:
+        letter_grade = 'FX'
+    elif 25 > grade >= 0:
+        letter_grade = 'F'
+
+    firstcommision = commission1.lastname + ' ' + commission1.name + ' ' + commission1.middlename
+    secondcommision = commission2.lastname + ' ' + commission2.name + ' ' + commission2.middlename
+    thirdcommision = commission3.lastname + ' ' + commission3.name + ' ' + commission3.middlename
+    fourthcommision = commission4.lastname + ' ' + commission4.name + ' ' + commission4.middlename
+
+    firstchairman = chairman.lastname + ' ' + chairman.name + ' ' + chairman.middlename
+
+    firstinitials = commission1.initials
+    secondinitials = commission2.initials
+    thirdinitials = commission3.initials
+    fourthinitials = commission4.initials
+    fifthinitials = chairman.initials
+    sixthinitials = secretary.initials
+
+    starttimehour = student.time.hour
+    starttimeminute = student.time.minute
+    endtimehour = student.endtime.hour
+    endtimeminute = student.endtime.minute
+
+    d1 = today.strftime("%d.%m.%Y")
+
+    doc = DocxTemplate("bboard2/static/protocol_1.docx")
+
+    context = {
+        "number": countsecond,
+        "day": current_time.day,
+        "month": current_time.strftime('%B'),
+        "year": current_time.year,
+        "lastname": lastname,
+        "name": name,
+        "middlename": middlename,
+        "speciality": speciality,
+        "firstcommision": firstcommision,
+        "secondcommision": secondcommision,
+        "thirdcommision": thirdcommision,
+        "fourthcommision": fourthcommision,
+        "firstchairman": firstchairman,
+        "firstinitials": firstinitials,
+        "secondinitials": secondinitials,
+        "thirdinitials": thirdinitials,
+        "fourthinitials": fourthinitials,
+        "fifthinitials": fifthinitials,
+        "sixthinitials":sixthinitials,
+        "starttimehour": starttimehour,
+        "starttimeminute": starttimeminute,
+        "endtimehour": endtimehour,
+        "endtimeminute": endtimeminute,
+        "grade": grade,
+        "letter_grade": letter_grade,
+        "advisor": advisor,
+        "advisor_scientific_degree": advisor_scientific_degree,
+        "diplomatitle": diplomatitle,
+    }
+
+    doc.render(context)
+
+    doc.save("{0}_{1}_Протокол_2.docx".format(name, lastname))
+    doc_name = f"{name}_{lastname}_Протокол_2.docx"
+    logging.debug("Document name: {}".format(doc_name))
+    print(doc_name)
+
+    # Создать HTTP-ответ, который будет содержать созданный документ
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename={doc_name}'
+
+    with io.open(doc_name, 'rb') as file:
+        document_bytes = file.read()
+
+    response['Content-Length'] = len(document_bytes)
+    response.write(document_bytes)
+    return response
+
+def download_presentation(request, pk):
+    student = get_object_or_404(Students, pk=pk)
     context = {
         'student': student
     }
@@ -264,6 +431,17 @@ def download_presentation(request, stud_id):
     response.write(document_bytes)
 
     return response
+
+# def download_presentation(request, pk):
+#     student = get_object_or_404(Students, pk=pk)
+#     context = {
+#         'student': student
+#     }
+#     file = student.prez_diploma
+#     response = HttpResponse(file, content_type='application/force-download')
+#     response['Content-Disposition'] = 'attachment; filename="%s"' % file.name
+#     return response
+
 
 def edit_stud_page(request):
     return render(request, 'edit_stud_page.html', {'username': auth.get_user(request).username})

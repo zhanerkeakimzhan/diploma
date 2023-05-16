@@ -99,33 +99,39 @@ background: #f2f4fa;
                                     <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
                                     <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
                                     <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
-                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' stud_id=student.id %}"> Скачать презентацию </a></td></tr>
+{#                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' stud_id=student.id %}"> Скачать презентацию </a></td></tr>#}
                                     <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
                                     <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
                                     <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
 <!--                                    <tr><td class="active">Бірбәле:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>-->
 <!--                                    <tr><td class="active">Плагин рейтинга:</td><td><a href="https://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>-->
-{#                                    <form method="post" action="{% url 'com_stud_page' id=student.id %}">#}
-{#                                      {% csrf_token %}#}
+                                    <form method="post" action="{% url 'add_grade' id=student.id %}">
+                                      {% csrf_token %}
 {#                                        {{ form.as_p }}#}
 {#                                        <input type="hidden" name="commission_id" value="{{ commission.id }}">#}
+                                        <label for="question_text">Question:</label>
+                                        <input type="text" id="question_text" name="question"><br>
+                                        <label for="grade">Grade:</label>
+                                        <input type="number" id="grade" name="value"><br>
+                                        <input type="submit" value="Submit">
 {#                                        <label for="{{ grade_form.question.id_for_label }}">Question:</label>#}
-{#                                        {{ form.question }}#}
-{#                                        <input type="text" id="question_text" name="question_text"><br>#}
+{#                                        <p name="question">{{ form.question }}</p>#}
+{#                                        <input type="text" id="question_text" name="question"><br>#}
 {#                                        <label for="{{ grade_form.value.id_for_label }}">Grade:</label>#}
-{#                                        {{ form.value }}#}
+{#                                        <p name="value">{{ form.value }}</p>#}
+{#                                        <input type="text" id="question_text" name="value"><br>#}
 {#                                        <button type="submit">Submit</button>#}
-{#                                    </form>#}
-                                    <form method="POST" action="{% url 'com_stud_page' id=student.id %}">
-                                          {% csrf_token %}
-                                          <label for="value">Value:</label>
-                                          <input type="number" name="value" id="value" required>
-                                          <br>
-                                          <label for="question">Question:</label>
-                                          <input type="text" name="question" id="question" required>
-                                          <br>
-                                          <input type="submit" value="Save">
                                     </form>
+{#                                    <form method="POST" action="{% url 'com_stud_page' id=student.id %}">#}
+{#                                          {% csrf_token %}#}
+{#                                          <label for="value">Value:</label>#}
+{#                                          <input type="number" name="value" id="value" required>#}
+{#                                          <br>#}
+{#                                          <label for="question">Question:</label>#}
+{#                                          <input type="text" name="question" id="question" required>#}
+{#                                          <br>#}
+{#                                          <input type="submit" value="Save">#}
+{#                                    </form>#}
 
 
                                     </tbody>

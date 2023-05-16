@@ -13,6 +13,8 @@ urlpatterns = [
     path('documents/', views.documents, name='documents'),
     path('student/<int:id>/', views.student_page, name='student_page'),
     path('com_student/<int:id>/', views.com_stud_page, name='com_stud_page'),
+    path('com_student_second/<int:id>/', views.com_stud_page_second, name='com_stud_page_second'),
+    path('add_grade/<int:id>/', views.add_grade, name='add_grade'),
     path('edit_stud/', views.edit_stud_page, name='edit_stud'),
     path('students/', views.students, name='students_list'),
     path('commissions/', views.commissions, name='commissions_list'),
@@ -22,7 +24,8 @@ urlpatterns = [
     path('add/', views.add_student, name='add_students'),
     path('delete/<int:stud_id>/', views.delete_student, name='delete_student'),
     path('download/<int:stud_id>/', views.download_document, name='download_document'),
-    path('download_presentation/<int:stud_id>/', views.download_presentation, name='download_presentation')
+    path('download1/<int:stud_id>/', views.download_document1, name='download_document1'),
+    path('download_presentation/<int:pk>/', views.download_presentation, name='download_presentation')
 ]
 
 if settings.DEBUG:
