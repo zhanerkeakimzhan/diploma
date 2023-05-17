@@ -232,7 +232,7 @@ def com_stud_page_second(request, id):
     return render(request, 'com_stud_page_second.html', context)
 
 count = 0
-def download_document(request, stud_id):
+def download_document(request, stud_id): #решение ГАК
     global count
     count += 1
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
@@ -253,7 +253,10 @@ def download_document(request, stud_id):
     lastname = student.lastname
     middlename = student.middlename
     speciality = student.speciality
-    grade = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
+    gradee = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
+    grade = round(gradee)
+    defense = Defense.objects.get(student=student)
+
 
     letter_grade = ' '
     if 100 >= grade >= 95:
@@ -295,12 +298,19 @@ def download_document(request, stud_id):
     fifthinitials = chairman.initials
     sixthinitials = secretary.initials
 
-    starttimehour = student.time.hour
-    starttimeminute = student.time.minute
-    endtimehour = student.endtime.hour
-    endtimeminute = student.endtime.minute
+    # starttimehour = student.time.hour
+    # starttimeminute = student.time.minute
+    # endtimehour = student.endtime.hour
+    # endtimeminute = student.endtime.minute
+    starttimehour = defense.start_time.hour
+    starttimeminute = defense.start_time.minute
+    endtimehour = defense.end_time.hour
+    endtimeminute = defense.end_time.minute
+
+    comment = defense.coment
 
     d1 = today.strftime("%d.%m.%Y")
+    # dat = student.date.strftime("%d.%m.%Y")
 
     doc = DocxTemplate("bboard2/static/protocol_2.docx")
 
@@ -331,6 +341,7 @@ def download_document(request, stud_id):
         "endtimeminute": endtimeminute,
         "grade": grade,
         "letter_grade": letter_grade,
+        "comment": comment
     }
 
     doc.render(context)
@@ -352,7 +363,7 @@ def download_document(request, stud_id):
     return response
 
 countsecond = 0
-def download_document1(request, stud_id):
+def download_document1(request, stud_id): #заседание ГАК
     global countsecond
     countsecond += 1
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
@@ -376,7 +387,15 @@ def download_document1(request, stud_id):
     diplomatitle = student.diploma_title
     advisor = student.advisor
     advisor_scientific_degree = student.advisor_scientific_degree
-    grade = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
+    gradee = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
+    grade = round(gradee)
+    defense = Defense.objects.get(student=student)
+    com1 = Grade.objects.get(commission=1, student=student).question
+    com2 = Grade.objects.get(commission=2, student=student).question
+    com3 = Grade.objects.get(commission=3, student=student).question
+    com4 = Grade.objects.get(commission=4, student=student).question
+
+    # com1q = com1.question
 
     letter_grade = ' '
     if 100 >= grade >= 95:
@@ -418,12 +437,16 @@ def download_document1(request, stud_id):
     fifthinitials = chairman.initials
     sixthinitials = secretary.initials
 
-    starttimehour = student.time.hour
-    starttimeminute = student.time.minute
-    endtimehour = student.endtime.hour
-    endtimeminute = student.endtime.minute
+    starttimehour = defense.start_time.hour
+    starttimeminute = defense.start_time.minute
+    endtimehour = defense.end_time.hour
+    endtimeminute = defense.end_time.minute
+
+    comment = defense.coment
 
     d1 = today.strftime("%d.%m.%Y")
+
+
 
     doc = DocxTemplate("bboard2/static/protocol_1.docx")
 
@@ -456,6 +479,11 @@ def download_document1(request, stud_id):
         "advisor": advisor,
         "advisor_scientific_degree": advisor_scientific_degree,
         "diplomatitle": diplomatitle,
+        "comment": comment,
+        "com1": com1,
+        "com2": com2,
+        "com3": com3,
+        "com4": com4
     }
 
     doc.render(context)
