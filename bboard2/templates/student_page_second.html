@@ -112,20 +112,20 @@ background: #f2f4fa;
                                         {% csrf_token %}
                                         <div class="form-group mr-4">
                                             <tr><td class="active"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2">Время начала:</label></td>
-                                                <td name="start_time">{{ defense_form.start_time }}</td></tr>
+                                                <td name="start_time">{{ start_time }}</td></tr>
                                         </div>
                                         <div class="form-group">
                                             <tr><td class="active"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2">Время окончания:</label></td>
-                                                <td name="end_time">{{ defense_form.end_time }}</td></tr>
+                                                <td name="end_time">{{ end_time }}</td></tr>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <tr><td class="active">Выберите комментарий: </td>
-                                                    <td name="comment">{{ defense_form.comment }}</td></tr>
+                                                    <td name="comment">{{ comment }}</td></tr>
                                             </div>
                                         </div>
 
-                                        <tr><td class="active"><button type="submit" class="btn btn-primary ml-4">Сохранить</button></td></tr>
+{#                                        <tr><td class="active"><button type="submit" class="btn btn-primary ml-4">Сохранить</button></td></tr>#}
                                     </form>
                                     <tr><td class="active">Протокол 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> Скачать Протокол 1 </a></td></tr>
                                     <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> Скачать Протокол 2 </a></td></tr>

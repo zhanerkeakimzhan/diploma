@@ -42,6 +42,13 @@ def login_page(request):
 @user_passes_test(lambda u: u.groups.filter(name='secretary').exists())
 def index(request):
     return render(request, 'index.html', {'username': auth.get_user(request).username})
+# def index(request):
+#     commission = get_object_or_404(Commissions, user=request.user)
+#     context = {
+#         'username': auth.get_user(request).username,
+#         'commission': commission
+#     }
+#     return render(request, 'index.html', context)
 
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='commission').exists())
@@ -74,6 +81,14 @@ def commissions(request):
 
 def student_page(request, id):
     student = get_object_or_404(Students, id=id)
+    # student = student.id
+
+    defenses = Defense.objects.filter(student=student)
+    if defenses.exists():
+        defense = defenses.first()
+        if defense.is_filled:
+            return redirect('student_page_second', id=id)
+
     defense_form = DefenseForm(request.POST or None)
     if defense_form.is_valid():
         defense = defense_form.save(commit=False)
@@ -89,13 +104,59 @@ def student_page(request, id):
         if defense_start_time and defense_end_time:
             defense_form.initial['start_time'] = defense_start_time
             defense_form.initial['end_time'] = defense_end_time
+
     context = {
         'username': auth.get_user(request).username,
         'student': student,
         'defense_form': defense_form
     }
 
+
+
+    # try:
+    #     defense = Defense.objects.get(student=student)
+    #     if defense.is_filled:
+    #         return redirect('student_page_second', id=id)
+    # except Grade.DoesNotExist:
+    #     pass
+
     return render(request, 'student_page.html', context)
+
+def add_time(request, id):
+    student = get_object_or_404(Students, id=id)
+    start_time = request.POST.get("start_time")
+    end_time = request.POST.get("end_time")
+    comment = request.POST.get("comment")
+
+    add_data = Defense(student=student, start_time=start_time, end_time=end_time, coment=comment)
+    add_data.save()
+
+    add_data.is_filled = True
+    add_data.save()
+
+    # return HttpResponse(f"student: {student} <br> start_time:{start_time} <br> end_time:{end_time} <br> comment:{comment}")
+    return redirect('student_page_second', id=id)
+
+def student_page_second(request, id):
+    student = get_object_or_404(Students, id=id)
+    student_id = student.id
+    # defense_form = DefenseForm(request.POST or None)
+
+    defense = Defense.objects.get(student=student_id)
+
+    start_time = defense.start_time
+    end_time = defense.end_time
+    comment = defense.coment
+
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student,
+        'start_time': start_time,
+        'end_time': end_time,
+        'comment': comment
+    }
+
+    return render(request, 'student_page_second.html', context)
 
 def com_stud_page(request, id):
     student = get_object_or_404(Students, id=id)

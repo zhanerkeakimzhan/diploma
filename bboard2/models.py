@@ -110,6 +110,8 @@ class Chairmans(models.Model):
         verbose_name = 'Chairman'
 
 class Defense(models.Model):
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    coment = models.CharField(default='')
     student = models.ForeignKey(Students, on_delete=models.CASCADE)
+    is_filled = models.BooleanField(default=False)

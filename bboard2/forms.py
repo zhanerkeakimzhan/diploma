@@ -14,9 +14,9 @@ class GradeForm(forms.ModelForm):
 
 class DefenseForm(forms.ModelForm):
     start_time = forms.DateTimeField(
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
+        widget=forms.DateTimeInput(attrs={'type': 'time', 'class': 'form-control'}))
     end_time = forms.DateTimeField(
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}))
+        widget=forms.DateTimeInput(attrs={'type': 'time', 'class': 'form-control'}))
     COMMENT_CHOICES = [
         ('Выберите', ' '),
         ('Отлично', 'Отлично'),
