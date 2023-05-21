@@ -31,17 +31,17 @@
         <!-- Navbar Links -->
         <ul class="right" id="menu">
 <!--            <li><a href="#home">Home</a></li>-->
-{#            <li><a >{{ username }} <img src="{% static 'images/profile.png' %}" alt="" width="30px"></a></li>#}
-{#        #}
-{#            {% if request.user.is_authenticated %}#}
-{#                {% with user_profile=request.user.userprofile %}#}
-{#                    <li>#}
-{#                        <a>{{ user_profile.commission.name }} {{ user_profile.commission.lastname }}#}
-{#                            <img src="{{ user_profile.commission.img.url }}" alt="" width="30px">#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endwith %}#}
-{#            {% endif %}#}
+            <li><a >{{ username }} <img src="{% static 'images/profile.png' %}" alt="" width="30px"></a></li>
+<!--{#        #}-->
+<!--{#            {% if request.user.is_authenticated %}#}-->
+<!--{#                {% with user_profile=request.user.userprofile %}#}-->
+<!--{#                    <li>#}-->
+<!--{#                        <a>{{ user_profile.commission.name }} {{ user_profile.commission.lastname }}#}-->
+<!--{#                            <img src="{{ user_profile.commission.img.url }}" alt="" width="30px">#}-->
+<!--{#                        </a>#}-->
+<!--{#                    </li>#}-->
+<!--{#                {% endwith %}#}-->
+<!--{#            {% endif %}#}-->
 
             <li>
                 <a>{{ commission.user.first_name }} {{ commission.user.last_name }} <img src="{{ commission.user.profile_pic.url }}" alt="" width="30px"></a>

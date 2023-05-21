@@ -9,7 +9,7 @@
 <style>
     body {
         color: #566787;
-		background: #f5f5f5;
+		background: #f2f4fa!important;
 		font-family: 'Varela Round', sans-serif;
 		font-size: 13px;
 	}
@@ -269,8 +269,8 @@
 						<a href="{% url 'index' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
 					</div>
 					<div class="col-sm-6">
-{#						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Добавить студент</span></a>#}
-{#						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Удалить</span></a>#}
+<!--{#						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Добавить студент</span></a>#}-->
+<!--{#						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Удалить</span></a>#}-->
 					</div>
                 </div>
             </div>
@@ -307,8 +307,8 @@
                             <td>{{student.diploma_title}}</td>
                             <td>
 								<a href="{% url 'student_page' id=student.id %}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-{#                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>#}
-{#                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>#}
+<!--{#                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>#}-->
+<!--{#                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>#}-->
 <!--								<a href="{% url 'student_page' id=student.id %}">профиль</a>-->
                             </td>
                         </tr>
@@ -464,7 +464,6 @@
 		</div>
 
 	</div>
-
 </body>
 
 {% endblock content %}

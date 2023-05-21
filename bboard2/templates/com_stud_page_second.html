@@ -17,16 +17,17 @@
 body{
 background: #f2f4fa;
 }
-
+.panel {
+    margin-bottom: 0px;
+}
 #main {
- background-color: #f2f4fa;
- padding: 20px;
- -webkit-border-radius: 4px;
- -moz-border-radius: 4px;
- -ms-border-radius: 4px;
- -o-border-radius: 4px;
- border-radius: 4px;
- border-bottom: 4px solid #ddd;
+     background-color: #f2f4fa;
+     padding: 20px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+     -ms-border-radius: 4px;
+     -o-border-radius: 4px;
+     border-radius: 4px;
 }
 #real-estates-detail #author img {
  -webkit-border-radius: 100%;
@@ -76,7 +77,6 @@ background: #f2f4fa;
                             <h3>{{student.lastname}} {{student.name}} {{student.middlename}}</h3>
                             <small class="label label-warning">Бакалавр</small>
                             <h3></h3>
-<!--                            <p>Я простой Русский пацан и мне всё по барабану.</p>-->
                             <p class="sosmed-author">
                             <div class="btn-group">
 <!--                                <a href="{% url 'edit_stud' %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>-->
@@ -88,7 +88,7 @@ background: #f2f4fa;
             </div>
             <div class="col-lg-8 col-md-8 col-xs-12">
                 <div class="panel">
-                    <div class="panel-body">
+                    <div class="panel panel-default panel-body">
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="detail">
                                 <br><br>
@@ -99,34 +99,26 @@ background: #f2f4fa;
                                     <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
                                     <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
                                     <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
-{#                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' stud_id=student.id %}"> Скачать презентацию </a></td></tr>#}
+<!--{#                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' stud_id=student.id %}"> Скачать презентацию </a></td></tr>#}-->
                                     <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
                                     <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
                                     <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
-<!--                                    <tr><td class="active">Бірбәле:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>-->
-<!--                                    <tr><td class="active">Плагин рейтинга:</td><td><a href="https://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>-->
-{#                                    <form method="post" action="{% url 'add_grade' id=student.id %}">#}
-{#                                      {% csrf_token %}#}
-{#                                        <label for="question_text">Question: {{ grade_data.question }}</label><br>#}
-{#                                        <label for="grade">Grade: {{ grade_data.value }}</label>#}
-{#                                    </form>#}
+
                                     <form method="post" action="{% url 'add_grade' id=student.id %}">
                                       {% csrf_token %}
-                                        <label for="question_text">Question: {{ question }}</label><br>
-                                        <label for="grade">Grade: {{ value }}</label>
+                                        <tr>
+                                            <td class="active">
+                                              <label for="question_text" style="font-weight: normal;">Вопрос: </label>
+                                            </td>
+                                            <td> {{ question }} <br></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="active">
+                                                <label for="grade" style="font-weight: normal;">Балл: </label>
+                                            </td>
+                                            <td> {{ value }} <br></td>
+                                        </tr>
                                     </form>
-{#                                    <form method="POST" action="{% url 'com_stud_page' id=student.id %}">#}
-{#                                          {% csrf_token %}#}
-{#                                          <label for="value">Value:</label>#}
-{#                                          <input type="number" name="value" id="value" required>#}
-{#                                          <br>#}
-{#                                          <label for="question">Question:</label>#}
-{#                                          <input type="text" name="question" id="question" required>#}
-{#                                          <br>#}
-{#                                          <input type="submit" value="Save">#}
-{#                                    </form>#}
-
-
                                     </tbody>
                                 </table>
                                 <br><br>

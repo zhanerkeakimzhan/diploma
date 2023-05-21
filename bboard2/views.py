@@ -3,7 +3,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from pyexpat.errors import messages
-from .forms import DefenseForm, GradeForm
+from .forms import GradeForm, DefenseForm
 from .models import Students
 from .models import Defense
 from docxtpl import DocxTemplate
@@ -42,13 +42,6 @@ def login_page(request):
 @user_passes_test(lambda u: u.groups.filter(name='secretary').exists())
 def index(request):
     return render(request, 'index.html', {'username': auth.get_user(request).username})
-# def index(request):
-#     commission = get_object_or_404(Commissions, user=request.user)
-#     context = {
-#         'username': auth.get_user(request).username,
-#         'commission': commission
-#     }
-#     return render(request, 'index.html', context)
 
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='commission').exists())
@@ -64,20 +57,8 @@ def logout_page(request):
     logout(request)
     return redirect('login')
 
-# def index(request):
-#     return render(request, 'index.html', {'username': auth.get_user(request).username})
-
 def commissions(request):
     return render(request, 'commissions.html', {'username': auth.get_user(request).username})
-
-# def com_stud_page(request, id):
-#     student = get_object_or_404(Students, id=id)
-#     context = {
-#         'username': auth.get_user(request).username,
-#         'student': student
-#     }
-#
-#     return render(request, 'com_stud_page.html', context)
 
 def student_page(request, id):
     student = get_object_or_404(Students, id=id)
@@ -110,8 +91,6 @@ def student_page(request, id):
         'student': student,
         'defense_form': defense_form
     }
-
-
 
     # try:
     #     defense = Defense.objects.get(student=student)
@@ -446,8 +425,6 @@ def download_document1(request, stud_id): #заседание ГАК
 
     d1 = today.strftime("%d.%m.%Y")
 
-
-
     doc = DocxTemplate("bboard2/static/protocol_1.docx")
 
     context = {
@@ -557,6 +534,24 @@ def students(request):
         'students': students
     }
     return render(request, 'students.html', context)
+
+def com_list(request):
+    commissions = Commissions.objects.all()
+    context = {
+        'username': auth.get_user(request).username,
+        'commissions': commissions
+    }
+    return render(request, 'com_list.html', context)
+
+def com_page(request, id):
+    commission = get_object_or_404(Commissions, id=id)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'commission': commission,
+    }
+
+    return render(request, 'com_page.html', context)
 
 def add_student(request):
     if request.method == 'POST':
