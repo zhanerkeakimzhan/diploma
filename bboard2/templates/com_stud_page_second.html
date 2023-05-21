@@ -113,8 +113,9 @@ background: #f2f4fa;
                                     <form method="post" action="{% url 'add_grade' id=student.id %}">
                                       {% csrf_token %}
                                         <label for="question_text">Question: {{ question }}</label><br>
-                                        <label for="grade">Grade: {{ value }}</label>
-                                    </form>
+                                        <label for="grade">Grade: {{ value }}</label><br>
+                                        <button>изменить оценку</button><br>
+                                    </form><br>
 {#                                    <form method="POST" action="{% url 'com_stud_page' id=student.id %}">#}
 {#                                          {% csrf_token %}#}
 {#                                          <label for="value">Value:</label>#}
