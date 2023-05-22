@@ -21,10 +21,23 @@ class DefenseForm(forms.ModelForm):
         ('Выберите', ' '),
         ('Отлично', 'Отлично'),
         ('Хорошо', 'Хорошо'),
-        ('Неплохо', 'Неплохо'),
+        ('Удовлетворительно', 'Удовлетворительно'),
     ]
     comment = forms.ChoiceField(choices=COMMENT_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Defense
         fields = ['start_time', 'end_time', 'comment']
+
+class CharacteristicForm(forms.ModelForm):
+    COMMENT_CHOICES = [
+        ('Выберите', ' '),
+        ('Уверенно', 'отвечал уверенно и правильно'),
+        ('бирнарсе', 'бирнарсе'),
+        ('екинарсе', 'екинарсе'),
+    ]
+    comment = forms.ChoiceField(choices=COMMENT_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Defense
+        fields = ['comment']

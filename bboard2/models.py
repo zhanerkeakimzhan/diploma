@@ -21,8 +21,6 @@ class Students(models.Model):
     recen_diploma = models.FileField('Рецензия', upload_to='uploads/', default='')
     feedback_diploma = models.FileField('Отзыв руководителя', upload_to='uploads/', default='')
     antiplagiat = models.FileField('Антиплагиат', upload_to='uploads/', default='')
-    time = models.TimeField('Время сдачи диплома', auto_now_add=True, null=True, blank=True)
-    endtime = models.TimeField('Время окончание сдачи диплома', auto_now_add=True, null=True, blank=True)
     date = models.DateField('Дата сдачи диплома', default='2000-01-01', null=True, blank=True)
     advisor = models.CharField('Руководитель', max_length=100, default='')
     advisor_scientific_degree = models.CharField('Степень руководителя', max_length=100, default='')
@@ -112,6 +110,12 @@ class Chairmans(models.Model):
 class Defense(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
-    coment = models.CharField(default='')
+    coment = models.CharField(default='', max_length=500) #Особые мнения комиссии
     student = models.ForeignKey(Students, on_delete=models.CASCADE)
     is_filled = models.BooleanField(default=False)
+    page_number = models.CharField()
+    picture_number = models.CharField()
+    text_input = models.CharField() #отзыв рук
+    text_input_1 = models.CharField() #заключение эксперта
+    score = models.CharField() #оценка рецензента
+    text_area = models.CharField() #Неофициальные отзывы

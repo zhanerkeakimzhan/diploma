@@ -26,7 +26,6 @@ background: #f2f4fa;
  -ms-border-radius: 4px;
  -o-border-radius: 4px;
  border-radius: 4px;
- border-bottom: 4px solid #ddd;
 }
 #real-estates-detail #author img {
  -webkit-border-radius: 100%;
@@ -54,6 +53,9 @@ background: #f2f4fa;
 .label-warning {
     background-color: #2776B8;
 }
+.panel {
+    margin-bottom: 0px;
+}
 </style>
 
 <div class="container">
@@ -76,7 +78,6 @@ background: #f2f4fa;
                             <h3>{{student.lastname}} {{student.name}} {{student.middlename}}</h3>
                             <small class="label label-warning">Бакалавр</small>
                             <h3></h3>
-<!--                            <p>Я простой Русский пацан и мне всё по барабану.</p>-->
                             <p class="sosmed-author">
                             <div class="btn-group">
                                 <a href="{% url 'edit_stud' %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>
@@ -88,10 +89,12 @@ background: #f2f4fa;
             </div>
             <div class="col-lg-8 col-md-8 col-xs-12">
                 <div class="panel">
-                    <div class="panel-body">
+                    <div class="panel panel-default panel-body">
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="detail">
-                                <br><br>
+                                <br><div class="text-center">
+                                    <h4>Личные данные</h4>
+                                </div><br>
                                 <table class="table table-th-block">
                                     <tbody>
                                     <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
@@ -103,6 +106,16 @@ background: #f2f4fa;
                                     <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
                                     <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
                                     <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
+                                    <tr><td class="active">Протокол 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> Скачать Протокол 1 </a></td></tr>
+                                    <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> Скачать Протокол 2 </a></td></tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="text-center">
+                                    <h4>Данные для ввода</h4>
+                                </div>
+                                <table class="table table-th-block">
+                                    <tbody>
                                     {% if defense_start_time and defense_end_time %}
                                         <p>Время начала защиты: {{ defense_start_time }}</p>
                                         <p>Время окончания защиты: {{ defense_end_time }}</p>
@@ -111,24 +124,70 @@ background: #f2f4fa;
                                     <form method="post" class="form-inline" action="{% url 'add_time' id=student.id %}">
                                         {% csrf_token %}
                                         <div class="form-group mr-4">
-                                            <tr><td class="active"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2">Время начала:</label></td>
+                                            <tr><td class="active" width="33.5%"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Время начала:</label></td>
                                                 <td name="start_time">{{ defense_form.start_time }}</td></tr>
                                         </div>
-                                        <div class="form-group">
-                                            <tr><td class="active"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2">Время окончания:</label></td>
+                                        <div class="form-group mr-4">
+                                            <tr><td class="active" width="33.5%"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Время окончания:</label></td>
                                                 <td name="end_time">{{ defense_form.end_time }}</td></tr>
                                         </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="page_number" style="font-weight: normal;">Пояснительная записка на:</label>
+                                                </td>
+                                                <td><input type="text" placeholder="Введите число страниц" name="page_number" class="form-control" id="page_number"></td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="picture_number" style="font-weight: normal;">Чертежи, таблицы на:</label>
+                                                </td>
+                                                <td><input type="text" placeholder="Введите число страниц" name="picture_number" class="form-control" id="picture_number"></td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="text_input" style="font-weight: normal;">Отзыв научного руководителя:</label>
+                                                </td>
+                                                <td><input type="text" placeholder="Введите текст" name="text_input" class="form-control" id="text_input"></td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="text_input_1" style="font-weight: normal;">Заключение экспертного:</label>
+                                                </td>
+                                                <td><input type="text" placeholder="Введите текст" name="text_input_1" class="form-control" id="text_input_1"></td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="score" class="active" style="font-weight: normal;" width="33.5%">Оценка рецензента:</label>
+                                                </td>
+                                            <td><input type="text" placeholder="Введите оценку" name="score" class="form-control" id="score"></td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="text_area" style="font-weight: normal;">Неофициальные отзывы:</label>
+                                                </td>
+                                                <td><input type="text" placeholder="Введите текст" name="text_area" class="form-control" id="text_area"></td>
+                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active">Выберите комментарий: </td>
+                                                <tr><td class="active" width="33.5%">Особые мнения комиссии: </td>
                                                     <td name="comment">{{ defense_form.comment }}</td></tr>
                                             </div>
                                         </div>
 
-                                        <tr><td class="active"><button type="submit" class="btn btn-primary ml-4">Сохранить</button></td></tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+                                            </td>
+                                        </tr>
                                     </form>
-                                    <tr><td class="active">Протокол 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> Скачать Протокол 1 </a></td></tr>
-                                    <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> Скачать Протокол 2 </a></td></tr>
+
                                     </tbody>
                                 </table>
                                 <br><br>

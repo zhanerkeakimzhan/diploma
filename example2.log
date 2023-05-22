@@ -20,3 +20,17 @@ INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\vi
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
+ERROR:django.request:Internal Server Error: /download1/1/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 371, in download_document1
+    defense = Defense.objects.get(student=student)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+bboard2.models.Defense.DoesNotExist: Defense matching query does not exist.
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
