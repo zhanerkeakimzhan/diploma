@@ -77,7 +77,7 @@ background: #f2f4fa;
                             <h3></h3>
                             <p class="sosmed-author">
                             <div class="btn-group">
-                                <a href="{% url 'edit_stud' %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>
+{#                                <a href="{% url 'edit_stud' %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>#}
                             </div>
                             </p>
                         </div>
@@ -92,16 +92,19 @@ background: #f2f4fa;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
-                                    <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
                                     <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
                                     <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
                                     <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
+                                    <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
+                                    <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
+                                    <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
+                                    <tr><td class="active">Руководитель:</td><td>{{student.advisor}}</td></tr>
+                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href=""> жүктеп алу </a></td></tr>
                                     <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Скачать презентацию </a></td></tr>
                                     <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
                                     <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
                                     <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
-                                    {% if defense_start_time and defense_end_time %}
+{#                                  {% if defense_start_time and defense_end_time %}
                                         <p>Время начала защиты: {{ defense_start_time }}</p>
                                         <p>Время окончания защиты: {{ defense_end_time }}</p>
                                     {% endif %}
@@ -115,6 +118,60 @@ background: #f2f4fa;
                                         <div class="form-group">
                                             <tr><td class="active"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2">Время окончания:</label></td>
                                                 <td name="end_time">{{ end_time }}</td></tr>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="page_number" style="font-weight: normal;">Пояснительная записка на:</label>
+                                                </td>
+                                                <td name = "page_number">{{ page_number }}</td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="picture_number" style="font-weight: normal;">Чертежи, таблицы на:</label>
+                                                </td>
+                                                <td name="picture_number">{{ picture_number }}</td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="text_input" style="font-weight: normal;">Отзыв научного руководителя:</label>
+                                                </td>
+                                                <td name="text_input">{{ text_input }}</td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="text_input_1" style="font-weight: normal;">Заключение экспертного:</label>
+                                                </td>
+                                                <td name="text_input_1">{{ text_input_1 }}</td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="score" class="active" style="font-weight: normal;" width="33.5%">Оценка рецензента:</label>
+                                                </td>
+                                            <td name="score">{{ score }}</td>
+                                        </div>
+                                        <div class="form-group mr-4">
+                                            <tr>
+                                                <td class="active" width="33.5%">
+                                                    <label for="text_area" style="font-weight: normal;">Неофициальные отзывы:</label>
+                                                </td>
+                                                <td name="text_area">{{ text_area }}</td>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <tr><td class="active" width="33.5%">Общая характеристика ответов: </td>
+                                                    <td name="comment_2">{{ comment_2 }}</td></tr>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <tr><td class="active" width="33.5%">Уровень знаний: </td>
+                                                    <td name="comment_3">{{ comment_3 }}</td></tr>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">

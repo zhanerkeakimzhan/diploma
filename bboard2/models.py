@@ -25,6 +25,8 @@ class Students(models.Model):
     advisor = models.CharField('Руководитель', max_length=100, default='')
     advisor_scientific_degree = models.CharField('Степень руководителя', max_length=100, default='')
     advisor_job = models.CharField('Место работы руководителя', max_length=100, default='')
+    advisor_initials = models.CharField('Руководитель инициалы', max_length=100, default='')
+    gpa = models.CharField('GPA', max_length=10, default='')
     # opinion = models.CharField('Особые мнение членов комиссии', )
 
     def __str__(self):
@@ -119,3 +121,5 @@ class Defense(models.Model):
     text_input_1 = models.CharField() #заключение эксперта
     score = models.CharField() #оценка рецензента
     text_area = models.CharField() #Неофициальные отзывы
+    comment_2 = models.CharField() #Общая характеристика ответов
+    comment_3 = models.CharField() #Уровень знаний
