@@ -19,6 +19,7 @@ from datetime import date
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden, HttpResponse
 from django.db.models import Avg
+from django.contrib.sessions import serializers
 
 def login_page(request):
     if request.method == 'POST':
@@ -31,6 +32,8 @@ def login_page(request):
                 return redirect('index')
             elif user.groups.filter(name='commission').exists():
                 return redirect('com_main')
+            elif user.groups.filter(name='chairman').exists():
+                return redirect('chair_main')
             else:
                 return redirect('login')
         else:
@@ -52,6 +55,14 @@ def com_main(request):
         'students': students
     }
     return render(request, 'com_main.html', context)
+
+def chair_main(request):
+    students = Students.objects.all()
+    context = {
+        'username': auth.get_user(request).username,
+        'students': students
+    }
+    return render(request, 'chairman_main.html', context)
 
 def logout_page(request):
     logout(request)
@@ -186,6 +197,26 @@ def com_stud_page(request, id):
 
     return render(request, 'com_stud_page.html', context)
 
+
+def chair_stud_page(request, id):
+    student = get_object_or_404(Students, id=id)
+    user_profile = request.user.userprofile
+    chairman = get_object_or_404(Chairmans, id=user_profile.chairman.id)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student
+    }
+
+    try:
+        grade = Grade.objects.get(chairman=chairman, student=student)
+        if grade.is_filled:
+            return redirect('chair_stud_page_second', id=id)
+    except Grade.DoesNotExist:
+        pass
+
+    return render(request, 'chair_stud_page.html', context)
+
 def add_grade(request, id):
     student = get_object_or_404(Students, id=id)
     user_profile = request.user.userprofile
@@ -239,6 +270,80 @@ def com_stud_page_second(request, id):
     }
 
     return render(request, 'com_stud_page_second.html', context)
+
+def add_grade_chair(request, id):
+    student = get_object_or_404(Students, id=id)
+    user_profile = request.user.userprofile
+    chairman = get_object_or_404(Chairmans, id=user_profile.chairman.id)
+    question = request.POST.get("question")
+    value = request.POST.get("value")
+
+    add_data = Grade(chairman=chairman, student=student, question=question,value=value)
+    add_data.save()
+
+    add_data.is_filled = True
+    add_data.save()
+
+    # request.session['grade_data'] = {
+    #     'student': student.id,
+    #     'chairman': chairman.id,
+    #     'question': question,
+    #     'value': value
+    # }
+    #
+    # context = {
+    #     'username': auth.get_user(request).username,
+    #     'student': student,
+    #     'grade_data': request.session.get('grade_data')
+    # }
+    # return HttpResponse(f"student:{student} <br> commission:{commission} <br> question:{question} <br> value:{value}")
+    # return render(request, 'com_stud_page_second.html', context)
+    return redirect('chair_stud_page_second', id=id)
+
+def chair_stud_page_second(request, id):
+    student = get_object_or_404(Students, id=id)
+    student_id = student.id
+
+    user_profile = request.user.userprofile
+    chairman = get_object_or_404(Chairmans, id=user_profile.chairman.id)
+    chairman_id = chairman.id
+
+    grade_data = request.session.get('grade_data')
+
+    grade = Grade.objects.get(chairman=chairman_id, student=student_id)
+
+    question = grade.question
+    value = grade.value
+
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student,
+        'grade_data': grade_data,
+        'question': question,
+        'value': value,
+        'grade': grade,
+    }
+
+    return render(request, 'chair_stud_page_second.html', context)
+
+def update_grade(request, grade_id):
+    grade = get_object_or_404(Grade, id=grade_id)
+    value = request.POST.get("value")
+
+    grade.value = value
+    grade.save()
+
+    # if 'grade_data' in request.session:
+    #     # Удаление данных grade_data из сессии
+    #     del request.session['grade_data']
+    #
+    #     # Сериализация и сохранение сессии
+    #     request.session.modified = True
+    #     serialized_data = serializers.serialize('json', [request.session.session_key])
+    #     request.session['serialized_data'] = serialized_data
+    #     request.session.save()
+
+    return redirect('chair_stud_page_second', id=grade.student.id)
 
 count = 0
 def download_document(request, stud_id): #решение ГАК
