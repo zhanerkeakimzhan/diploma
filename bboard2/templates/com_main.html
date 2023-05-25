@@ -1,6 +1,6 @@
 {% extends 'basic.html' %}
 {% load static i18n %}
-{% block title  %} Главная страница {% endblock title %}
+{% block title  %} Басты бет {% endblock title %}
 
 <link rel="stylesheet" href="{% static 'css/students.css' %}" type="text/css">
 
@@ -227,6 +227,9 @@
 	.modal form label {
 		font-weight: normal;
 	}
+	th{
+	min-width: 0px;
+	}
 </style>
 <script>
     $(document).ready(function(){
@@ -266,21 +269,21 @@
             <div class="filter-form">
                 <form method="GET" action="{% url 'com_main' %}" style="margin-bottom: 20px; text-align: center;">
                     <div style="display: inline-block;">
-                        <h5 style="margin-bottom: 5px; display: inline-block;">Введите дату: </h5>
-                        <input type="date" name="date" value="{{ date_query }}" style="padding: 5px; display: inline-block; border: 1px solid #ccc; transition: border-color 0.3s;">
+                        <h5 style="margin-bottom: 5px; display: inline-block;">Күнді енгізіңіз: </h5>
+                        <input type="date" name="date" value="{{ query }}" style="padding: 5px; display: inline-block; border: 1px solid #ccc; transition: border-color 0.3s;">
                     </div>
-                    <button type="submit" style="padding: 5px 10px; background-color: #566F9E; color: white; border: none; cursor: pointer;">Применить</button>
+                    <button type="submit" style="padding: 5px 10px; background-color: #566F9E; color: white; border: none; cursor: pointer;">Іздеу</button>
                 </form>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th style="min-width: 100px;">Фамилия</th>
-                        <th style="min-width: 70px;">Имя</th>
-            			<th style="min-width: 100px;">Отчество</th>
-                        <th style="min-width: 100px;">ИИН</th>
-                        <th style="min-width: 400px;">Название дипломной работы</th>
-                        <th style="min-width: 100px;">Руководитель</th>
+                        <th style="min-width: 110px;">Тегі</th>
+                        <th style="min-width: 80px;">Аты</th>
+            			<th style="min-width: 110px;">Әкесінің аты</th>
+                        <th style="min-width: 100px;">ЖСН</th>
+                        <th style="min-width: 400px;">Дипломдық жұмыстың атауы</th>
+						<th style="min-width: 100px;">Ғылыми жетекшісі</th>
                     </tr>
                 </thead>
                 <tbody>

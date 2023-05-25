@@ -103,19 +103,19 @@ background: #f2f4fa;
                                     <tr><td class="active">Білім беру бағдарламасы / Мамандығы:</td><td>{{student.speciality}}</td></tr>
                                     <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
                                     <tr><td class="active">Дипломдық жобаның тақырыбы:</td><td>{{student.diploma_title}}</td></tr>
-                                    <tr><td class="active">Жетекші:</td><td>{{student.advisor}} <br> {{student.advisor_scientific_degree}}</td></tr>
+                                    <tr><td class="active">Ғылыми жетекші:</td><td>{{student.advisor}} <br> {{student.advisor_scientific_degree}}</td></tr>
                                     <tr><td class="active">Түсіндірме жазба:</td><td><a href=""> Құжатты жүктеп алу </a></td></tr>
                                     <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
                                     <tr><td class="active">Рецензия: </td><td><a href="">Рецензияны жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Жетекшінің пікірі: </td><td><a href="">Жетекшінің пікірін жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
                                     <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Протокол 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> 1 Хаттаманы жүктеу </a></td></tr>
-                                    <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> 2 Хаттаманы жүктеу  </a></td></tr>
+                                    <tr><td class="active">Хаттама 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> 1 Хаттаманы жүктеу </a></td></tr>
+                                    <tr><td class="active">Хаттама 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> 2 Хаттаманы жүктеу  </a></td></tr>
                                     </tbody>
                                 </table>
 
                                 <div class="text-center">
-                                    <h4>Данные для ввода</h4>
+                                    <h4>Енгізу деректері</h4>
                                 </div>
                                 <table class="table table-th-block">
                                     <tbody>
@@ -127,77 +127,77 @@ background: #f2f4fa;
                                     <form method="post" class="form-inline" action="{% url 'add_time' id=student.id %}">
                                         {% csrf_token %}
                                         <div class="form-group mr-4">
-                                            <tr><td class="active" width="33.5%"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Время начала:</label></td>
+                                            <tr><td class="active" width="33.5%"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Басталу уақыты:</label></td>
                                                 <td name="start_time">{{ defense_form.start_time }}</td></tr>
                                         </div>
                                         <div class="form-group mr-4">
-                                            <tr><td class="active" width="33.5%"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Время окончания:</label></td>
+                                            <tr><td class="active" width="33.5%"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Аяқталу уақыты:</label></td>
                                                 <td name="end_time">{{ defense_form.end_time }}</td></tr>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="page_number" style="font-weight: normal;">Пояснительная записка на:</label>
+                                                    <label for="page_number" style="font-weight: normal;">Түсіндірме жазба:</label>
                                                 </td>
-                                                <td><input type="text" placeholder="Введите число страниц" name="page_number" class="form-control" id="page_number"></td>
+                                                <td><input type="text" placeholder="Беттер санын енгізіңіз" name="page_number" class="form-control" id="page_number"></td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="picture_number" style="font-weight: normal;">Чертежи, таблицы на:</label>
+                                                    <label for="picture_number" style="font-weight: normal;">Сызбалар, кестелер:</label>
                                                 </td>
-                                                <td><input type="text" placeholder="Введите число страниц" name="picture_number" class="form-control" id="picture_number"></td>
+                                                <td><input type="text" placeholder="Беттер санын енгізіңіз" name="picture_number" class="form-control" id="picture_number"></td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="text_input" style="font-weight: normal;">Отзыв научного руководителя:</label>
+                                                    <label for="text_input" style="font-weight: normal;">Ғылыми жетекшінің пікірі:</label>
                                                 </td>
-                                                <td><input type="text" placeholder="Введите текст" name="text_input" class="form-control" id="text_input"></td>
+                                                <td><input type="text" placeholder="Мәтінді енгізіңіз" name="text_input" class="form-control" id="text_input"></td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="text_input_1" style="font-weight: normal;">Заключение экспертного:</label>
+                                                    <label for="text_input_1" style="font-weight: normal;">Сарапшының қорытындысы:</label>
                                                 </td>
-                                                <td><input type="text" placeholder="Введите текст" name="text_input_1" class="form-control" id="text_input_1"></td>
+                                                <td><input type="text" placeholder="Мәтінді енгізіңіз" name="text_input_1" class="form-control" id="text_input_1"></td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="score" class="active" style="font-weight: normal;" width="33.5%">Оценка рецензента:</label>
+                                                    <label for="score" class="active" style="font-weight: normal;" width="33.5%">Рецензентті бағасы:</label>
                                                 </td>
-                                            <td><input type="text" placeholder="Введите оценку" name="score" class="form-control" id="score"></td>
+                                            <td><input type="text" placeholder="Бағаны енгізіңіз" name="score" class="form-control" id="score"></td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="text_area" style="font-weight: normal;">Неофициальные отзывы:</label>
+                                                    <label for="text_area" style="font-weight: normal;">Бейресми пікірлер:</label>
                                                 </td>
-                                                <td><input type="text" placeholder="Введите текст" name="text_area" class="form-control" id="text_area"></td>
+                                                <td><input type="text" placeholder="Мәтінді енгізіңіз" name="text_area" class="form-control" id="text_area"></td>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active" width="33.5%">Общая характеристика ответов: </td>
+                                                <tr><td class="active" width="33.5%">Жауаптардың жалпы сипаттамасы: </td>
                                                     <td name="comment_2">{{ defense_form.comment_2 }}</td></tr>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active" width="33.5%">Уровень знаний: </td>
+                                                <tr><td class="active" width="33.5%">Білім деңгейі: </td>
                                                     <td name="comment_3">{{ defense_form.comment_3 }}</td></tr>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active" width="33.5%">Особые мнения комиссии: </td>
+                                                <tr><td class="active" width="33.5%">Комиссияның ерекше пікірлері: </td>
                                                     <td name="comment">{{ defense_form.comment }}</td></tr>
                                             </div>
                                         </div>
 
                                         <tr>
                                             <td colspan="2">
-                                                <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+                                                <button type="submit" class="btn btn-primary btn-block">Сақтау</button>
                                             </td>
                                         </tr>
                                     </form>
