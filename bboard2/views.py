@@ -21,6 +21,10 @@ from django.http import HttpResponseForbidden, HttpResponse
 from django.db.models import Avg
 from django.contrib.sessions import serializers
 
+from django.db.models import Avg, Q
+
+
+
 def login_page(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -49,10 +53,18 @@ def index(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='commission').exists())
 def com_main(request):
+    date_query = request.GET.get('date')  # Получение значения фильтрации по дате
+
     students = Students.objects.all()
+
+    if date_query:
+        # Фильтрация студентов по дате сдачи
+        students = students.filter(date=date_query)
+
     context = {
         'username': auth.get_user(request).username,
-        'students': students
+        'students': students,
+        'date_query': date_query  # Передача значения фильтрации по дате в контекст
     }
     return render(request, 'com_main.html', context)
 
@@ -63,6 +75,22 @@ def chair_main(request):
         'students': students
     }
     return render(request, 'chairman_main.html', context)
+
+def students(request):
+    query = request.GET.get('date')  # Получение значения фильтрации по дате
+
+    students = Students.objects.all()
+
+    if query:
+        # Фильтрация студентов по дате сдачи
+        students = students.filter(date=query)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'students': students,
+        'date_query': query  # Передача значения фильтрации по дате в контекст
+    }
+    return render(request, 'students.html', context)
 
 def logout_page(request):
     logout(request)
@@ -680,14 +708,6 @@ def documents_second(request):
 def documents_third(request):
     students = Students.objects.all()
     return render(request, 'document_page_third.html', {'students': students, 'username': auth.get_user(request).username})
-
-def students(request):
-    students = Students.objects.all()
-    context = {
-        'username': auth.get_user(request).username,
-        'students': students
-    }
-    return render(request, 'students.html', context)
 
 def com_list(request):
     commissions = Commissions.objects.all()

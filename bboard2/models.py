@@ -121,11 +121,11 @@ class Defense(models.Model):
     coment = models.CharField(default='', max_length=500) #Особые мнения комиссии
     student = models.ForeignKey(Students, on_delete=models.CASCADE)
     is_filled = models.BooleanField(default=False)
-    page_number = models.CharField()
-    picture_number = models.CharField()
-    text_input = models.CharField() #отзыв рук
-    text_input_1 = models.CharField() #заключение эксперта
-    score = models.CharField() #оценка рецензента
-    text_area = models.CharField() #Неофициальные отзывы
-    comment_2 = models.CharField() #Общая характеристика ответов
-    comment_3 = models.CharField() #Уровень знаний
+    page_number = models.CharField(max_length=500, default='')
+    picture_number = models.CharField(max_length=500, default='')
+    text_input = models.CharField(max_length=500, default='') #отзыв рук
+    text_input_1 = models.CharField(max_length=500, default='') #заключение эксперта
+    score = models.CharField(max_length=500, default='') #оценка рецензента
+    text_area = models.CharField(max_length=500, default='') #Неофициальные отзывы
+    comment_2 = models.CharField(max_length=500, default='') #Общая характеристика ответов
+    comment_3 = models.CharField(max_length=500, default='') #Уровень знаний

@@ -2,7 +2,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
 
-{% block title  %} Страница студента {{student.lastname}} {{student.name}} {% endblock title %}
+{% block title  %} Студент беті - {{student.lastname}} {{student.name}} {% endblock title %}
 
 {% block content %}
 
@@ -66,7 +66,7 @@ background: #f2f4fa;
                         <a href="{% url 'com_main' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
                         <header class="panel-title">
                             <div class="text-center">
-                                <strong>Информация о Студенте</strong>
+                                <strong>Студент туралы ақпарат</strong>
                             </div>
                         </header>
                     </div>
@@ -94,82 +94,35 @@ background: #f2f4fa;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
-                                    <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
-                                    <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
-                                    <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
+                                    <tr><td class="active">Туған күні:</td><td>{{student.birthday}}</td></tr>
+                                    <tr><td class="active">ЖСН:</td><td>{{student.iin}}</td></tr>
+                                    <tr><td class="active">Жеке куәлік/паспорт № :</td><td>{{student.id_card}}</td></tr>
+                                    <tr><td class="active">Білім беру бағдарламасы / Мамандығы:</td><td>{{student.speciality}}</td></tr>
                                     <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
-                                    <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
-                                    <tr><td class="active">Руководитель:</td><td>{{student.advisor}}</td></tr>
-                                    <form method="post" action="{% url 'add_grade_chair' id=student.id %}">
+                                    <tr><td class="active">Дипломдық жобаның тақырыбы:</td><td>{{student.diploma_title}}</td></tr>
+                                    <tr><td class="active">Ғылыми жетекші:</td><td>{{student.advisor}}</td></tr>
+                                    <form method="post" action="{% url 'add_grade' id=student.id %}">
                                       {% csrf_token %}
-{#                                        <label for="question_text">Question: {{ question }}</label><br>#}
-{#                                        <label for="grade">Grade: {{ value }}</label><br>#}
-{#                                        <button>изменить оценку</button><br>#}
-{#                                    </form><br>#}
-{#                                    <form method="POST" action="{% url 'com_stud_page' id=student.id %}">#}
-{#                                          {% csrf_token %}#}
-{#                                          <label for="value">Value:</label>#}
-{#                                          <input type="number" name="value" id="value" required>#}
-{#                                          <br>#}
-{#                                          <label for="question">Question:</label>#}
-{#                                          <input type="text" name="question" id="question" required>#}
-{#                                          <br>#}
-{#                                          <input type="submit" value="Save">#}
-{#                                    </form>#}
-
-
                                         <tr>
                                             <td class="active">
-                                              <label for="question_text" style="font-weight: normal;">Вопрос: </label>
+                                              <label for="question_text" style="font-weight: normal;">Сұрақ: </label>
                                             </td>
                                             <td> {{ question }} <br></td>
                                         </tr>
                                         <tr>
                                             <td class="active">
-                                                <label for="grade" style="font-weight: normal;">Балл: </label>
+                                                <label for="grade" style="font-weight: normal;">Баға: </label>
                                             </td>
                                             <td> {{ value }} <br></td>
                                         </tr>
                                     </form>
 
-                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href=""> жүктеп алу </a></td></tr>
-                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Скачать презентацию </a></td></tr>
-                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Скачать рецензию</a></td></tr>
-                                    <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
-                                    <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
+                                    <tr><td class="active">Түсіндірме жазба:</td><td><a href="">Құжатты жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
+                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Рецензияны жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
 
-{#                                    <form method="post" action="{% url 'add_grade' id=student.id %}">#}
-{#                                      {% csrf_token %}#}
-{#                                        <label for="question_text">Question: {{ question }}</label><br>#}
-{#                                        <label for="grade">Grade: {{ value }}</label><br>#}
-{#                                        <button>изменить оценку</button><br>#}
-{#                                    </form><br>#}
-{#                                    <form method="POST" action="{% url 'com_stud_page' id=student.id %}">#}
-{#                                          {% csrf_token %}#}
-{#                                          <label for="value">Value:</label>#}
-{#                                          <input type="number" name="value" id="value" required>#}
-{#                                          <br>#}
-{#                                          <label for="question">Question:</label>#}
-{#                                          <input type="text" name="question" id="question" required>#}
-{#                                          <br>#}
-{#                                          <input type="submit" value="Save">#}
-{#                                    </form>#}
-{##}
-{##}
-{#                                        <tr>#}
-{#                                            <td class="active">#}
-{#                                              <label for="question_text" style="font-weight: normal;">Вопрос: </label>#}
-{#                                            </td>#}
-{#                                            <td> {{ question }} <br></td>#}
-{#                                        </tr>#}
-{#                                        <tr>#}
-{#                                            <td class="active">#}
-{#                                                <label for="grade" style="font-weight: normal;">Балл: </label>#}
-{#                                            </td>#}
-{#                                            <td> {{ value }} <br></td>#}
-{#                                        </tr>#}
-{#                                    </form>#}
                                     </tbody>
                                 </table>
                                 <br><br>
