@@ -25,6 +25,8 @@ class Students(models.Model):
     advisor = models.CharField('Руководитель', max_length=100, default='')
     advisor_scientific_degree = models.CharField('Степень руководителя', max_length=100, default='')
     advisor_job = models.CharField('Место работы руководителя', max_length=100, default='')
+    advisor_initials = models.CharField('Руководитель инициалы', max_length=100, default='')
+    gpa = models.CharField('GPA', max_length=10, default='')
     # opinion = models.CharField('Особые мнение членов комиссии', )
 
     def __str__(self):
@@ -110,6 +112,14 @@ class Chairmans(models.Model):
 class Defense(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
-    coment = models.CharField(default='', max_length=500)
+    coment = models.CharField(default='', max_length=500) #Особые мнения комиссии
     student = models.ForeignKey(Students, on_delete=models.CASCADE)
     is_filled = models.BooleanField(default=False)
+    page_number = models.CharField(max_length=500, default='')
+    picture_number = models.CharField(max_length=500, default='')
+    text_input = models.CharField(max_length=500, default='') #отзыв рук
+    text_input_1 = models.CharField(max_length=500, default='') #заключение эксперта
+    score = models.CharField(max_length=500, default='') #оценка рецензента
+    text_area = models.CharField(max_length=500, default='') #Неофициальные отзывы
+    comment_2 = models.CharField(max_length=500, default='') #Общая характеристика ответов
+    comment_3 = models.CharField(max_length=500, default='') #Уровень знаний

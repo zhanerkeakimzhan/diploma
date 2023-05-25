@@ -2,7 +2,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
 
-{% block title  %} Страница комиссии {{commission.lastname}} {{commission.name}} {% endblock title %}
+{% block title  %} Комиссия беті - {{commission.lastname}} {{commission.name}} {% endblock title %}
 
 {% block content %}
 
@@ -26,7 +26,6 @@ background: #f2f4fa!important;
  -ms-border-radius: 4px;
  -o-border-radius: 4px;
  border-radius: 4px;
- border-bottom: 4px solid #ddd;
 }
 #real-estates-detail #author img {
  -webkit-border-radius: 100%;
@@ -65,7 +64,7 @@ background: #f2f4fa!important;
                         <a href="{% url 'com_list' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
                         <header class="panel-title">
                             <div class="text-center">
-                                <strong>Информация о Комиссии</strong>
+                                <strong>Комиссия туралы ақпарат</strong>
                             </div>
                         </header>
                     </div>
@@ -73,11 +72,11 @@ background: #f2f4fa!important;
                         <div class="text-center" id="author">
                             <img width="220px" src="{{ commission.img.url }}">
                             <h3>{{commission.lastname}} {{commission.name}} {{commission.middlename}}</h3>
-                            <small class="label label-warning">Член комиссии</small>
+                            <small class="label label-warning">Комиссия мүшесі</small>
                             <h3></h3>
                             <p class="sosmed-author">
                             <div class="btn-group">
-                                <a href="#"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>
+<!--                                <a href="#"><button type="button" class="btn btn-sm btn-outline-secondary">Профильді өңдеу</button></a>-->
                             </div>
                             </p>
                         </div>
@@ -92,11 +91,11 @@ background: #f2f4fa!important;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">ФИО:</td><td>{{commission.lastname}} {{commission.name}} {{commission.middlename}}</td></tr>
-                                    <tr><td class="active">Место работы:</td><td>{{commission.job}}</td></tr>
-                                    <tr><td class="active">Степень / должность:</td><td>{{commission.scientific_degree}}</td></tr>
-                                    <tr><td class="active">Номер телефона:</td><td>{{commission.number}}</td></tr>
-                                    <tr><td class="active">Электронная почта:</td><td>{{commission.email}}</td></tr>
+                                    <tr><td class="active">ТАӘ:</td><td>{{commission.lastname}} {{commission.name}} {{commission.middlename}}</td></tr>
+                                    <tr><td class="active">Жұмыс орны:</td><td>{{commission.job}}</td></tr>
+                                    <tr><td class="active">Дәрежесі / лауазымы:</td><td>{{commission.scientific_degree}}</td></tr>
+                                    <tr><td class="active">Телефон нөмірі:</td><td>{{commission.number}}</td></tr>
+                                    <tr><td class="active">Электрондық пошта:</td><td>{{commission.email}}</td></tr>
                                     </tbody>
                                 </table>
                                 <br><br>

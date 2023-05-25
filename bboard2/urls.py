@@ -3,6 +3,13 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from bboard2 import views
+from bboard2.views import (
+    download_diploma,
+    download_prez_diploma,
+    download_recen_diploma,
+    download_feedback_diploma,
+    download_antiplagiat,
+)
 
 urlpatterns = [
     path('', views.login_page, name='login'),
@@ -20,8 +27,8 @@ urlpatterns = [
     path('edit_stud/', views.edit_stud_page, name='edit_stud'),
     path('students/', views.students, name='students_list'),
     path('commissions/', views.commissions, name='commissions_list'),
-    path('/com_list/', views.com_list, name='com_list'),
-    path('/com_page/<int:id>/', views.com_page, name='com_page'),
+    path('com_list/', views.com_list, name='com_list'),
+    path('com_page/<int:id>/', views.com_page, name='com_page'),
     path('documents/', views.documents, name='documents_list'),
     path('documentssecond/', views.documents_second, name='documents_list_second'),
     path('documentsthird/', views.documents_third, name='documents_list_third'),
@@ -29,7 +36,12 @@ urlpatterns = [
     path('delete/<int:stud_id>/', views.delete_student, name='delete_student'),
     path('download/<int:stud_id>/', views.download_document, name='download_document'),
     path('download1/<int:stud_id>/', views.download_document1, name='download_document1'),
-    path('download_presentation/<int:pk>/', views.download_presentation, name='download_presentation')
+    path('download_presentation/<int:pk>/', views.download_presentation, name='download_presentation'),
+    path('download/diploma/<int:student_id>/', download_diploma, name='download_diploma'),
+    path('download/prez_diploma/<int:student_id>/', download_prez_diploma, name='download_prez_diploma'),
+    path('download/recen_diploma/<int:student_id>/', download_recen_diploma, name='download_recen_diploma'),
+    path('download/feedback_diploma/<int:student_id>/', download_feedback_diploma, name='download_feedback_diploma'),
+    path('download/antiplagiat/<int:student_id>/', download_antiplagiat, name='download_antiplagiat')
 ]
 
 if settings.DEBUG:

@@ -18,7 +18,8 @@ from datetime import date
 # from .forms import GradeForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden, HttpResponse
-from django.db.models import Avg
+from django.db.models import Avg, Q
+
 
 def login_page(request):
     if request.method == 'POST':
@@ -46,12 +47,37 @@ def index(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='commission').exists())
 def com_main(request):
+    date_query = request.GET.get('date')  # Получение значения фильтрации по дате
+
     students = Students.objects.all()
+
+    if date_query:
+        # Фильтрация студентов по дате сдачи
+        students = students.filter(date=date_query)
+
     context = {
         'username': auth.get_user(request).username,
-        'students': students
+        'students': students,
+        'date_query': date_query  # Передача значения фильтрации по дате в контекст
     }
     return render(request, 'com_main.html', context)
+
+
+def students(request):
+    query = request.GET.get('date')  # Получение значения фильтрации по дате
+
+    students = Students.objects.all()
+
+    if query:
+        # Фильтрация студентов по дате сдачи
+        students = students.filter(date=query)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'students': students,
+        'date_query': query  # Передача значения фильтрации по дате в контекст
+    }
+    return render(request, 'students.html', context)
 
 def logout_page(request):
     logout(request)
@@ -106,14 +132,28 @@ def add_time(request, id):
     start_time = request.POST.get("start_time")
     end_time = request.POST.get("end_time")
     comment = request.POST.get("comment")
+    page_number = request.POST.get("page_number")
+    picture_number = request.POST.get("picture_number")
+    text_input = request.POST.get("text_input")
+    text_input_1 = request.POST.get("text_input_1")
+    score = request.POST.get("score")
+    text_area = request.POST.get("text_area")
+    comment_2 = request.POST.get("comment_2")
+    comment_3 = request.POST.get("comment_3")
 
-    add_data = Defense(student=student, start_time=start_time, end_time=end_time, coment=comment)
+    add_data = Defense(student=student, start_time=start_time, end_time=end_time, coment=comment,
+                       page_number=page_number, picture_number=picture_number, text_input=text_input,
+                       text_input_1=text_input_1, score=score, text_area=text_area, comment_2=comment_2,
+                       comment_3=comment_3)
     add_data.save()
 
     add_data.is_filled = True
     add_data.save()
 
-    # return HttpResponse(f"student: {student} <br> start_time:{start_time} <br> end_time:{end_time} <br> comment:{comment}")
+    # return HttpResponse(f"student: {student} <br> start_time:{start_time} <br> end_time:{end_time} <br> comment:{comment}"
+    #                     f"<br> page_number:{page_number} <br> picture_number:{picture_number} <br> text_input:{text_input} "
+    #                     f"<br> text_input_1:{text_input_1} <br> score:{score} <br> text_area:{text_area} "
+    #                     f"<br> comment_2:{comment_2} <br> comment_3:{comment_3} ")
     return redirect('student_page_second', id=id)
 
 def student_page_second(request, id):
@@ -126,13 +166,29 @@ def student_page_second(request, id):
     start_time = defense.start_time
     end_time = defense.end_time
     comment = defense.coment
+    page_number = defense.page_number
+    picture_number = defense.picture_number
+    text_input = defense.text_input
+    text_input_1 = defense.text_input_1
+    score = defense.score
+    text_area = defense.text_area
+    comment_2 = defense.comment_2
+    comment_3 = defense.comment_3
 
     context = {
         'username': auth.get_user(request).username,
         'student': student,
         'start_time': start_time,
         'end_time': end_time,
-        'comment': comment
+        'comment': comment,
+        'page_number': page_number,
+        'picture_number': picture_number,
+        'text_input': text_input,
+        'text_input_1': text_input_1,
+        'score': score,
+        'text_area': text_area,
+        'comment_2': comment_2,
+        'comment_3': comment_3
     }
 
     return render(request, 'student_page_second.html', context)
@@ -214,7 +270,7 @@ count = 0
 def download_document(request, stud_id): #решение ГАК
     global count
     count += 1
-    locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
     current_time = datetime.datetime.today()
     today = date.today()
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
@@ -285,13 +341,15 @@ def download_document(request, stud_id): #решение ГАК
     starttimeminute = defense.start_time.minute
     endtimehour = defense.end_time.hour
     endtimeminute = defense.end_time.minute
+    diploma_title = student.diploma_title
+
 
     comment = defense.coment
 
     d1 = today.strftime("%d.%m.%Y")
     # dat = student.date.strftime("%d.%m.%Y")
 
-    doc = DocxTemplate("bboard2/static/protocol_2.docx")
+    doc = DocxTemplate("bboard2/static/protocol_2_kz.docx")
 
     context = {
         "number": count,
@@ -320,7 +378,8 @@ def download_document(request, stud_id): #решение ГАК
         "endtimeminute": endtimeminute,
         "grade": grade,
         "letter_grade": letter_grade,
-        "comment": comment
+        "comment": comment,
+        "diploma_title": diploma_title
     }
 
     doc.render(context)
@@ -345,7 +404,7 @@ countsecond = 0
 def download_document1(request, stud_id): #заседание ГАК
     global countsecond
     countsecond += 1
-    locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
     current_time = datetime.datetime.today()
     today = date.today()
     logging.basicConfig(filename='example2.log', level=logging.DEBUG)
@@ -422,10 +481,18 @@ def download_document1(request, stud_id): #заседание ГАК
     endtimeminute = defense.end_time.minute
 
     comment = defense.coment
+    page_number = defense.page_number
+    picture_number = defense.picture_number
+    text_input = defense.text_input #отзыв рук
+    text_input_1 = defense.text_input_1 #заключение эксперта
+    score = defense.score
+    text_area = defense.text_area
+    comment_2 = defense.comment_2
+    comment_3 = defense.comment_3
 
     d1 = today.strftime("%d.%m.%Y")
 
-    doc = DocxTemplate("bboard2/static/protocol_1.docx")
+    doc = DocxTemplate("bboard2/static/protocol_1_kz.docx")
 
     context = {
         "number": countsecond,
@@ -460,13 +527,21 @@ def download_document1(request, stud_id): #заседание ГАК
         "com1": com1,
         "com2": com2,
         "com3": com3,
-        "com4": com4
+        "com4": com4,
+        "page_number": page_number,
+        "picture_number": picture_number,
+        "text_input": text_input, #отзыв рук
+        "text_input_1": text_input_1, #заключение эксперта
+        "score": score, #оценка рецензента
+        "text_area": text_area, #Неофициальные отзывы
+        "comment_2": comment_2, #Общая характеристика ответов
+        "comment_3": comment_3 #Уровень знаний
     }
 
     doc.render(context)
 
-    doc.save("{0}_{1}_Протокол_2.docx".format(name, lastname))
-    doc_name = f"{name}_{lastname}_Протокол_2.docx"
+    doc.save("{0}_{1}_Протокол_1.docx".format(name, lastname))
+    doc_name = f"{name}_{lastname}_Протокол_1.docx"
     logging.debug("Document name: {}".format(doc_name))
     print(doc_name)
 
@@ -527,14 +602,6 @@ def documents_third(request):
     students = Students.objects.all()
     return render(request, 'document_page_third.html', {'students': students, 'username': auth.get_user(request).username})
 
-def students(request):
-    students = Students.objects.all()
-    context = {
-        'username': auth.get_user(request).username,
-        'students': students
-    }
-    return render(request, 'students.html', context)
-
 def com_list(request):
     commissions = Commissions.objects.all()
     context = {
@@ -586,7 +653,58 @@ def delete_student(request, stud_id):
         'stud': stud,
     }
     return render('students_list', context)
-#
+
+def download_diploma(request, student_id):
+    student = get_object_or_404(Students, id=student_id)
+
+    if student.diploma:
+        response = HttpResponse(student.diploma, content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + student.diploma.name
+        return response
+    else:
+        return HttpResponse("Файл диплома не найден")
+
+def download_prez_diploma(request, student_id):
+    student = get_object_or_404(Students, id=student_id)
+
+    if student.prez_diploma:
+        response = HttpResponse(student.prez_diploma, content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + student.prez_diploma.name
+        return response
+    else:
+        return HttpResponse("Файл презентации не найден")
+
+def download_recen_diploma(request, student_id):
+    student = get_object_or_404(Students, id=student_id)
+
+    if student.recen_diploma:
+        response = HttpResponse(student.recen_diploma, content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + student.recen_diploma.name
+        return response
+    else:
+        return HttpResponse("Файл рецензии не найден")
+
+def download_feedback_diploma(request, student_id):
+    student = get_object_or_404(Students, id=student_id)
+
+    if student.feedback_diploma:
+        response = HttpResponse(student.feedback_diploma, content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + student.feedback_diploma.name
+        return response
+    else:
+        return HttpResponse("Файл отзыва руководителя не найден")
+
+def download_antiplagiat(request, student_id):
+    student = get_object_or_404(Students, id=student_id)
+
+    if student.antiplagiat:
+        response = HttpResponse(student.antiplagiat, content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + student.antiplagiat.name
+        return response
+    else:
+        return HttpResponse("Файл антиплагиата не найден")
+
+
 # class GradeView(FormView):
 #     template_name = 'grades.html'
 #     form_class = GradeForm

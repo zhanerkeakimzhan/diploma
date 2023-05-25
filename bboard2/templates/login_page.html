@@ -16,11 +16,7 @@
   <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
   <link rel="icon" href="{% static 'images/su.png' %}" type="image/x-icon">
 
-  <title>Вход в систему</title>
-
-<!--    or this variant-->
-<!--    <title>Satbayev University</title>-->
-
+  <title>Жүйеге кіру</title>
 </head>
 
 <body>
@@ -63,8 +59,8 @@ body {
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5">
 
-              <h3 class="mb-2">Добро пожаловать</h3>
-              <h>Если вы зарегистрированы в системе, войдите в личный кабинет</h>
+              <h3 class="mb-2">Қош келдіңіз</h3>
+              <h>Егер сіз жүйеге тіркелген болсаңыз, жеке кабинетке кіріңіз</h>
 
               <hr class="my-4">
 
@@ -76,28 +72,27 @@ body {
                 </div>
                 <div class="form-floating mb-3">
                   <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-                  <label for="floatingPassword">Пароль</label>
+                  <label for="floatingPassword">Құпия сөз</label>
                 </div>
 
                 <p>
                 {% if error %}
-<!--                  <p><strong>{{ error }}</strong></p>-->
                   <label class="error"><strong>{{ error }}</strong></label>
                 {% endif %}
                 </p>
 
                 <div class="form-check mb-4">
                   <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                  <label class="form-check-label" for="rememberPasswordCheck">Запомнить пароль</label>
+                  <label class="form-check-label" for="rememberPasswordCheck">Құпия сөзді сақтау</label>
                 </div>
 
                 <div class="d-grid">
-                  <button class="btn btn-primary btn-login fw-bold" type="submit" >Войти</button>
+                  <button class="btn btn-primary btn-login fw-bold" type="submit" >Кіру</button>
                 </div>
 
                 <div class="text-center my-3">
-                  <a1 class="small">Забыли пароль?</a1>
-                  <a class="small" href="{% url 'forgot' %}">Сбросить сейчас</a>
+                  <a1 class="small">Құпия сөзді ұмыттыңыз ба?</a1>
+                  <a class="small" href="{% url 'forgot' %}">Қазір қалпына келтіріңіз</a>
                 </div>
               </form>
 
