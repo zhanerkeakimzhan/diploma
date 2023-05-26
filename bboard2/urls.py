@@ -31,6 +31,9 @@ urlpatterns = [
     path('download3/', views.download_document3, name='download_document3'),
     path('download_presentation/<int:pk>/', views.download_presentation, name='download_presentation'),
     path('download_diploma/<int:pk>/', views.download_diploma, name='download_diploma'),
+    path('download_recen/<int:pk>/', views.download_recen, name='download_recen'),
+    path('download_feedback/<int:pk>/', views.download_feedback, name='download_feedback'),
+    path('download_antiplagiat/<int:pk>/', views.download_antiplagiat, name='download_antiplagiat'),
 ]
 
 if settings.DEBUG:

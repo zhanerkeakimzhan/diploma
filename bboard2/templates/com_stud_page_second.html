@@ -117,11 +117,12 @@ background: #f2f4fa;
                                         </tr>
                                     </form>
 
-                                    <tr><td class="active">Түсіндірме жазба:</td><td><a href="">Құжатты жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
-                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href="{% url 'download_diploma' pk=student.id %}"> Құжатты жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' pk=student.id %}"> Презентацияны жүктеп алу </a></td></tr>
+                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen' pk=student.id %}">Рецензияны жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="{% url 'download_feedback' pk=student.id %}">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="{% url 'download_antiplagiat' pk=student.id %}">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
+{#
                                     </tbody>
                                 </table>
                                 <br><br>
