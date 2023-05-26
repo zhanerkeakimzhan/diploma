@@ -64,3 +64,19 @@ DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
+ERROR:django.request:Internal Server Error: /download/1/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 507, in download_document
+    "fch": fch,
+NameError: name 'fch' is not defined
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_1.docx
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_1.docx
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
+DEBUG:root:Document name: Алия_Нурмаханова_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.

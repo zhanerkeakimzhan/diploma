@@ -448,6 +448,13 @@ def download_document(request, stud_id): #решение ГАК
     fifthinitials = chairman.initials
     sixthinitials = secretary.initials
 
+    fc = commission1.scientific_degree
+    sc = commission2.scientific_degree
+    thc = commission3.scientific_degree
+    foc = commission4.scientific_degree
+
+    fch = chairman.scientific_degree
+
     # starttimehour = student.time.hour
     # starttimeminute = student.time.minute
     # endtimehour = student.endtime.hour
@@ -494,7 +501,12 @@ def download_document(request, stud_id): #решение ГАК
         "grade": grade,
         "letter_grade": letter_grade,
         "comment": comment,
-        "diploma_title": diploma_title
+        "diploma_title": diploma_title,
+        "fc": fc,
+        "sc": sc,
+        "thc": thc,
+        "foc": foc,
+        "fch": fch,
     }
 
     doc.render(context)
@@ -516,7 +528,7 @@ def download_document(request, stud_id): #решение ГАК
     return response
 
 countsecond = 0
-def download_document1(request, stud_id): #заседание ГАК
+def download_document1(request, stud_id): #заседание ГАК протокол 1
     global countsecond
     countsecond += 1
     locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
@@ -547,6 +559,7 @@ def download_document1(request, stud_id): #заседание ГАК
     com2 = Grade.objects.get(commission=2, student=student).question
     com3 = Grade.objects.get(commission=3, student=student).question
     com4 = Grade.objects.get(commission=4, student=student).question
+    chair = Grade.objects.get(chairman=1, student=student).question
 
     # com1q = com1.question
 
@@ -589,6 +602,13 @@ def download_document1(request, stud_id): #заседание ГАК
     fourthinitials = commission4.initials
     fifthinitials = chairman.initials
     sixthinitials = secretary.initials
+
+    fc = commission1.scientific_degree
+    sc = commission2.scientific_degree
+    thc = commission3.scientific_degree
+    foc = commission4.scientific_degree
+
+    fch = chairman.scientific_degree
 
     starttimehour = defense.start_time.hour
     starttimeminute = defense.start_time.minute
@@ -643,6 +663,7 @@ def download_document1(request, stud_id): #заседание ГАК
         "com2": com2,
         "com3": com3,
         "com4": com4,
+        "chair": chair,
         "page_number": page_number,
         "picture_number": picture_number,
         "text_input": text_input, #отзыв рук
@@ -650,7 +671,12 @@ def download_document1(request, stud_id): #заседание ГАК
         "score": score, #оценка рецензента
         "text_area": text_area, #Неофициальные отзывы
         "comment_2": comment_2, #Общая характеристика ответов
-        "comment_3": comment_3 #Уровень знаний
+        "comment_3": comment_3, #Уровень знаний
+        "fc": fc,
+        "sc": sc,
+        "thc": thc,
+        "foc": foc,
+        "fch": fch,
     }
 
     doc.render(context)
@@ -809,49 +835,37 @@ def download_document3(request): #ведомость
 
 def download_presentation(request, pk):
     student = get_object_or_404(Students, pk=pk)
-    context = {
-        'student': student
-    }
     presentation = student.prez_diploma
-    pre_name = presentation.name
-    response = HttpResponse(content_type='application/force-download')
-    response['Content-Disposition'] = f'attachment; filename={presentation}'
-    with io.open(pre_name, 'rb') as file:
+    file_path = presentation.path
+
+    with open(file_path, 'rb') as file:
         document_bytes = file.read()
 
+    response = HttpResponse(document_bytes, content_type='application/force-download')
+    response['Content-Disposition'] = f'attachment; filename={presentation.name}'
     response['Content-Length'] = len(document_bytes)
-    response.write(document_bytes)
 
     return response
 
-# def download_presentation(request, pk):
-#     student = get_object_or_404(Students, pk=pk)
-#     context = {
-#         'student': student
-#     }
-#     file = student.prez_diploma
-#     response = HttpResponse(file, content_type='application/force-download')
-#     response['Content-Disposition'] = 'attachment; filename="%s"' % file.name
-#     return response
+def download_diploma(request, pk):
+    student = get_object_or_404(Students, pk=pk)
+    diplomaa = student.diploma
+    file_path = diplomaa.path
 
+    with open(file_path, 'rb') as file:
+        document_bytes = file.read()
+
+    response = HttpResponse(document_bytes, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="{diplomaa.name}"'
+    response['Content-Length'] = len(document_bytes)
+
+    return response
 
 def edit_stud_page(request):
     return render(request, 'edit_stud_page.html', {'username': auth.get_user(request).username})
 
 def forgot_pw(request):
     return render(request, 'forgot_pw.html')
-
-def documents(request):
-    students = Students.objects.all()
-    return render(request, 'document_page.html', {'students': students})
-
-def documents_second(request):
-    students = Students.objects.all()
-    return render(request, 'document_page_second.html', {'students': students, 'username': auth.get_user(request).username})
-
-def documents_third(request):
-    students = Students.objects.all()
-    return render(request, 'document_page_third.html', {'students': students, 'username': auth.get_user(request).username})
 
 def com_list(request):
     commissions = Commissions.objects.all()
@@ -870,148 +884,3 @@ def com_page(request, id):
     }
 
     return render(request, 'com_page.html', context)
-
-def add_student(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        lastname = request.POST.get('lastname')
-        middlename = request.POST.get('middlename')
-        birthday = request.POST.get('birthday')
-        diploma_title = request.POST.get('diploma_title')
-        img = request.FILES['images']
-
-        stud = Students(
-            img = img,
-            name = name,
-            lastname = lastname,
-            middlename = middlename,
-            birthday = birthday,
-            diploma_title = diploma_title
-        )
-        stud.save()
-        return redirect('students_list')
-    return render(request, 'students.html')
-
-
-def delete_student(request, stud_id):
-    stud = Students.objects.filter(id=stud_id)
-
-    if request.method == 'POST':
-        stud.delete()
-        return redirect('students_list')
-
-    context = {
-        'stud': stud,
-    }
-    return render('students_list', context)
-
-def download_diploma(request, student_id):
-    student = get_object_or_404(Students, id=student_id)
-
-    if student.diploma:
-        response = HttpResponse(student.diploma, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=' + student.diploma.name
-        return response
-    else:
-        return HttpResponse("Файл диплома не найден")
-
-def download_prez_diploma(request, student_id):
-    student = get_object_or_404(Students, id=student_id)
-
-    if student.prez_diploma:
-        response = HttpResponse(student.prez_diploma, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=' + student.prez_diploma.name
-        return response
-    else:
-        return HttpResponse("Файл презентации не найден")
-
-def download_recen_diploma(request, student_id):
-    student = get_object_or_404(Students, id=student_id)
-
-    if student.recen_diploma:
-        response = HttpResponse(student.recen_diploma, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=' + student.recen_diploma.name
-        return response
-    else:
-        return HttpResponse("Файл рецензии не найден")
-
-def download_feedback_diploma(request, student_id):
-    student = get_object_or_404(Students, id=student_id)
-
-    if student.feedback_diploma:
-        response = HttpResponse(student.feedback_diploma, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=' + student.feedback_diploma.name
-        return response
-    else:
-        return HttpResponse("Файл отзыва руководителя не найден")
-
-def download_antiplagiat(request, student_id):
-    student = get_object_or_404(Students, id=student_id)
-
-    if student.antiplagiat:
-        response = HttpResponse(student.antiplagiat, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=' + student.antiplagiat.name
-        return response
-    else:
-        return HttpResponse("Файл антиплагиата не найден")
-
-
-# class GradeView(FormView):
-#     template_name = 'grades.html'
-#     form_class = GradeForm
-#
-#     def form_valid(self, form):
-#         grade = form.save(commit=False)
-#         grade.commission = self.request.user
-#         grade.save()
-#         return super().form_valid(form)
-#
-#
-# def login_page(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             if user.is_secretary:
-#                 user.groups.add(Group.objects.get(name='secretaries'))
-#                 login(request, user)
-#                 return redirect('index.html')
-#             elif user.is_commission:
-#                 user.groups.add(Group.objects.get(name='commission'))
-#             login(request, user)
-#             return redirect('commissions.html')
-#         else:
-#             return render(request, 'login_page.html', {'error': 'Неправильное имя пользователя или пароль'})
-#     else:
-#         return render(request, 'login_page.html')
-#
-# @login_required(login_url='/login/')
-# def index(request):
-#     if request.user.is_secretary:
-#         return render(request, 'index.html', {'username': auth.get_user(request).username})
-#     else:
-#         return redirect('login_page.html')
-#
-# @login_required(login_url='/login/')
-# def commissions(request):
-#     if request.user.is_commission:
-#         return render(request, 'commissions.html', {'username': auth.get_user(request).username})
-#     else:
-#         return redirect('login_page.html')
-#
-# def is_secretary(user):
-#     return user.groups.filter(name='secretaries').exists()
-#
-# @user_passes_test(is_secretary)
-# @login_required
-# def index(request):
-#     return render(request, 'index.html', {'username': auth.get_user(request).username})
-#
-# def is_commission(user):
-#     return user.groups.filter(name='commission').exists()
-#
-# @user_passes_test(is_commission)
-# @login_required
-# def commissions(request):
-#     return render(request, 'commissions.html', {'username': auth.get_user(request).username})

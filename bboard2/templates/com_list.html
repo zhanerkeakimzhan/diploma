@@ -277,12 +277,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-            <th>
-              <span class="custom-checkbox">
-                <input type="checkbox" id="selectAll">
-                <label for="selectAll"></label>
-              </span>
-            </th>
+                        <th>ID</th>
                         <th>Тегі</th>
                         <th>Аты</th>
             			<th>Әкесінің аты</th>
@@ -293,12 +288,13 @@
                 {% if commissions %}
                     {% for commission in commissions %}
                         <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                    <label for="checkbox1"></label>
-                                </span>
-                            </td>
+{#                            <td>#}
+{#                                <span class="custom-checkbox">#}
+{#                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">#}
+{#                                    <label for="checkbox1"></label>#}
+{#                                </span>#}
+{#                            </td>#}
+							<td>{{commission.id}}</td>
 							<td>{{commission.lastname}}</td>
                             <td>{{commission.name}}</td>
                             <td>{{commission.middlename}}</td>
