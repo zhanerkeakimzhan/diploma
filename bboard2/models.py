@@ -123,7 +123,7 @@ class Defense(models.Model):
     is_filled = models.BooleanField(default=False)
     page_number = models.CharField(max_length=500, default='')
     picture_number = models.CharField(max_length=500, default='')
-    text_input = models.CharField(max_length=500, default='') #отзыв рук
+    text_input = models.CharField(max_length=500, default='') #балл рук
     text_input_1 = models.CharField(max_length=500, default='') #заключение эксперта
     score = models.CharField(max_length=500, default='') #оценка рецензента
     text_area = models.CharField(max_length=500, default='') #Неофициальные отзывы
