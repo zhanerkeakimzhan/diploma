@@ -1,8 +1,9 @@
 {% extends 'basic.html' %}
-{% load static %}
+{% load static i18n %}
+{% block title  %} Басты бет {% endblock title %}
+
 <link rel="stylesheet" href="{% static 'css/students.css' %}" type="text/css">
 
-{% block title  %} Комиссия беті {% endblock title %}
 
 {% block content %}
 
@@ -10,7 +11,7 @@
     body {
         color: #566787;
 		background: #f2f4fa!important;
-        font-family: Lato, Helvetica, Arial, sans-serif;
+		font-family: 'Varela Round', sans-serif;
 		font-size: 13px;
 	}
 	.table-wrapper {
@@ -262,45 +263,38 @@
 <body>
     <div class="container">
         <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-<!--						<h2>Manage <b>Employees</b></h2>-->
-						<a href="{% url 'index' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
-					</div>
-					<div class="col-sm-6">
-<!--						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Добавить студент</span></a>-->
-<!--						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Удалить</span></a>-->
-					</div>
-                </div>
+            <div class="filter-form">
+                <form method="GET" action="{% url 'chair_main' %}" style="margin-bottom: 20px; text-align: center;">
+                    <div style="display: inline-block;">
+                        <h5 style="margin-bottom: 5px; display: inline-block;">Күнді енгізіңіз: </h5>
+                        <input type="date" name="date" value="{{ query }}" style="padding: 5px; display: inline-block; border: 1px solid #ccc; transition: border-color 0.3s;">
+                    </div>
+                    <button type="submit" style="padding: 5px 10px; background-color: #566F9E; color: white; border: none; cursor: pointer;">Іздеу</button>
+                </form>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-            <th>
-
-            </th>
-                        <th>Тегі</th>
-                        <th>Аты</th>
-            			<th>Әкесінің аты</th>
-            			<th>Дәрежесі / лауазымы</th>
+                        <th style="min-width: 110px;">Тегі</th>
+                        <th style="min-width: 80px;">Аты</th>
+            			<th style="min-width: 110px;">Әкесінің аты</th>
+                        <th style="min-width: 100px;">ЖСН</th>
+                        <th style="min-width: 400px;">Дипломдық жұмыстың атауы</th>
+						<th style="min-width: 100px;">Ғылыми жетекшісі</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% if commissions %}
-                    {% for commission in commissions %}
+                {% if students %}
+                    {% for student in students %}
                         <tr>
+							<td>{{student.lastname}}</td>
+                            <td>{{student.name}}</td>
+                            <td>{{student.middlename}}</td>
+                            <td>{{student.iin}}</td>
+                            <td>{{student.diploma_title}}</td>
+                            <td>{{student.advisor}}, {{student.advisor_scientific_degree}}</td>
                             <td>
-
-                            </td>
-							<td>{{commission.lastname}}</td>
-                            <td>{{commission.name}}</td>
-                            <td>{{commission.middlename}}</td>
-                            <td>{{commission.scientific_degree}}</td>
-                            <td>
-								<a href="{% url 'com_page' id=commission.id %}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-<!--                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
-<!--                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+								<a href="{% url 'chair_stud_page' id=student.id %}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                             </td>
                         </tr>
                     {% endfor %}

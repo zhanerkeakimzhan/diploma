@@ -2,7 +2,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
 
-{% block title  %} Страница студента {{student.lastname}} {{student.name}} {% endblock title %}
+{% block title  %} Студент беті - {{student.lastname}} {{student.name}} {% endblock title %}
 
 {% block content %}
 
@@ -77,7 +77,6 @@ background: #f2f4fa;
                             <h3></h3>
                             <p class="sosmed-author">
                             <div class="btn-group">
-{#                                <a href="{% url 'edit_stud' %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit profile</button></a>#}
                             </div>
                             </p>
                         </div>
@@ -92,98 +91,92 @@ background: #f2f4fa;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
-                                    <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
-                                    <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
-                                    <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
+                                   <tr><td class="active">Туған күні:</td><td>{{student.birthday}}</td></tr>
+                                    <tr><td class="active">ЖСН:</td><td>{{student.iin}}</td></tr>
+                                    <tr><td class="active">Жеке куәлік/паспорт № :</td><td>{{student.id_card}}</td></tr>
+                                    <tr><td class="active">Білім беру бағдарламасы / Мамандығы:</td><td>{{student.speciality}}</td></tr>
                                     <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
-                                    <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
-                                    <tr><td class="active">Руководитель:</td><td>{{student.advisor}}</td></tr>
-                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href=""> жүктеп алу </a></td></tr>
-                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Скачать презентацию </a></td></tr>
-                                    <tr><td class="active">Рецензия: </td><td><a href="">Скачать рецензию</a></td></tr>
-                                    <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
-                                    <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
-{#                                  {% if defense_start_time and defense_end_time %}
-                                        <p>Время начала защиты: {{ defense_start_time }}</p>
-                                        <p>Время окончания защиты: {{ defense_end_time }}</p>
-                                    {% endif %}
+                                    <tr><td class="active">Дипломдық жобаның тақырыбы:</td><td>{{student.diploma_title}}</td></tr>
+                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href=""> Құжатты жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
+                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
 
                                     <form method="post" class="form-inline" action="{% url 'add_time' id=student.id %}">
                                         {% csrf_token %}
                                         <div class="form-group mr-4">
-                                            <tr><td class="active"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2">Время начала:</label></td>
+                                            <tr><td class="active"><label for="{{ defense_form.start_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Бастау уақыты:</label></td>
                                                 <td name="start_time">{{ start_time }}</td></tr>
                                         </div>
                                         <div class="form-group">
-                                            <tr><td class="active"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2">Время окончания:</label></td>
+                                            <tr><td class="active"><label for="{{ defense_form.end_time.id_for_label }}" class="mr-2" style="font-weight: normal;">Аяқтау уақыты:</label></td>
                                                 <td name="end_time">{{ end_time }}</td></tr>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="page_number" style="font-weight: normal;">Пояснительная записка на:</label>
+                                                    <label for="page_number" style="font-weight: normal;">Түсініктеме жазба:</label>
                                                 </td>
                                                 <td name = "page_number">{{ page_number }}</td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="picture_number" style="font-weight: normal;">Чертежи, таблицы на:</label>
+                                                    <label for="picture_number" style="font-weight: normal;">Кестелер, суреттер:</label>
                                                 </td>
                                                 <td name="picture_number">{{ picture_number }}</td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="text_input" style="font-weight: normal;">Отзыв научного руководителя:</label>
+                                                    <label for="text_input" style="font-weight: normal;">Ғылыми жетекшінің бағасы:</label>
                                                 </td>
                                                 <td name="text_input">{{ text_input }}</td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="text_input_1" style="font-weight: normal;">Заключение экспертного:</label>
+                                                    <label for="text_input_1" style="font-weight: normal;">Сарапшының қорытындысы:</label>
                                                 </td>
                                                 <td name="text_input_1">{{ text_input_1 }}</td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="score" class="active" style="font-weight: normal;" width="33.5%">Оценка рецензента:</label>
+                                                    <label for="score" class="active" style="font-weight: normal;" width="33.5%">Рецензентті бағасы:</label>
                                                 </td>
                                             <td name="score">{{ score }}</td>
                                         </div>
                                         <div class="form-group mr-4">
                                             <tr>
                                                 <td class="active" width="33.5%">
-                                                    <label for="text_area" style="font-weight: normal;">Неофициальные отзывы:</label>
+                                                    <label for="text_area" style="font-weight: normal;">Бейресми пікірлер:</label>
                                                 </td>
                                                 <td name="text_area">{{ text_area }}</td>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active" width="33.5%">Общая характеристика ответов: </td>
+                                                <tr><td class="active" width="33.5%">Жауаптардың жалпы сипаттамасы: </td>
                                                     <td name="comment_2">{{ comment_2 }}</td></tr>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active" width="33.5%">Уровень знаний: </td>
+                                                <tr><td class="active" width="33.5%">Білім деңгейі: </td>
                                                     <td name="comment_3">{{ comment_3 }}</td></tr>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <tr><td class="active">Выберите комментарий: </td>
+                                                <tr><td class="active">Комиссияның ерекше пікірлері: </td>
                                                     <td name="comment">{{ comment }}</td></tr>
                                             </div>
                                         </div>
-
 {#                                        <tr><td class="active"><button type="submit" class="btn btn-primary ml-4">Сохранить</button></td></tr>#}
                                     </form>
-                                    <tr><td class="active">Протокол 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> Скачать Протокол 1 </a></td></tr>
-                                    <tr><td class="active">Протокол 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> Скачать Протокол 2 </a></td></tr>
+                                    <tr><td class="active">Хаттама 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> 1 Хаттаманы жүктеу </a></td></tr>
+                                    <tr><td class="active">Хаттама 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> 2 Хаттаманы жүктеу </a></td></tr>
                                     </tbody>
                                 </table>
                                 <br><br>

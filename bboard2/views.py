@@ -18,7 +18,11 @@ from datetime import date
 # from .forms import GradeForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden, HttpResponse
+from django.db.models import Avg
+from django.contrib.sessions import serializers
+
 from django.db.models import Avg, Q
+
 
 
 def login_page(request):
@@ -32,6 +36,8 @@ def login_page(request):
                 return redirect('index')
             elif user.groups.filter(name='commission').exists():
                 return redirect('com_main')
+            elif user.groups.filter(name='chairman').exists():
+                return redirect('chair_main')
             else:
                 return redirect('login')
         else:
@@ -62,7 +68,23 @@ def com_main(request):
     }
     return render(request, 'com_main.html', context)
 
+def chair_main(request):
+    query = request.GET.get('date')  # Получение значения фильтрации по дате
 
+    students = Students.objects.all()
+
+    if query:
+        # Фильтрация студентов по дате сдачи
+        students = students.filter(date=query)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'students': students,
+        'date_query': query  # Передача значения фильтрации по дате в контекст
+    }
+    return render(request, 'chairman_main.html', context)
+
+student_ids = 0
 def students(request):
     query = request.GET.get('date')  # Получение значения фильтрации по дате
 
@@ -77,7 +99,14 @@ def students(request):
         'students': students,
         'date_query': query  # Передача значения фильтрации по дате в контекст
     }
+
+    global student_ids
+    student_ids = [student.id for student in students]
+
+    # return HttpResponse(f"айдишки: {student_ids}")
     return render(request, 'students.html', context)
+
+
 
 def logout_page(request):
     logout(request)
@@ -212,6 +241,26 @@ def com_stud_page(request, id):
 
     return render(request, 'com_stud_page.html', context)
 
+
+def chair_stud_page(request, id):
+    student = get_object_or_404(Students, id=id)
+    user_profile = request.user.userprofile
+    chairman = get_object_or_404(Chairmans, id=user_profile.chairman.id)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student
+    }
+
+    try:
+        grade = Grade.objects.get(chairman=chairman, student=student)
+        if grade.is_filled:
+            return redirect('chair_stud_page_second', id=id)
+    except Grade.DoesNotExist:
+        pass
+
+    return render(request, 'chair_stud_page.html', context)
+
 def add_grade(request, id):
     student = get_object_or_404(Students, id=id)
     user_profile = request.user.userprofile
@@ -265,6 +314,80 @@ def com_stud_page_second(request, id):
     }
 
     return render(request, 'com_stud_page_second.html', context)
+
+def add_grade_chair(request, id):
+    student = get_object_or_404(Students, id=id)
+    user_profile = request.user.userprofile
+    chairman = get_object_or_404(Chairmans, id=user_profile.chairman.id)
+    question = request.POST.get("question")
+    value = request.POST.get("value")
+
+    add_data = Grade(chairman=chairman, student=student, question=question,value=value)
+    add_data.save()
+
+    add_data.is_filled = True
+    add_data.save()
+
+    # request.session['grade_data'] = {
+    #     'student': student.id,
+    #     'chairman': chairman.id,
+    #     'question': question,
+    #     'value': value
+    # }
+    #
+    # context = {
+    #     'username': auth.get_user(request).username,
+    #     'student': student,
+    #     'grade_data': request.session.get('grade_data')
+    # }
+    # return HttpResponse(f"student:{student} <br> commission:{commission} <br> question:{question} <br> value:{value}")
+    # return render(request, 'com_stud_page_second.html', context)
+    return redirect('chair_stud_page_second', id=id)
+
+def chair_stud_page_second(request, id):
+    student = get_object_or_404(Students, id=id)
+    student_id = student.id
+
+    user_profile = request.user.userprofile
+    chairman = get_object_or_404(Chairmans, id=user_profile.chairman.id)
+    chairman_id = chairman.id
+
+    grade_data = request.session.get('grade_data')
+
+    grade = Grade.objects.get(chairman=chairman_id, student=student_id)
+
+    question = grade.question
+    value = grade.value
+
+    context = {
+        'username': auth.get_user(request).username,
+        'student': student,
+        'grade_data': grade_data,
+        'question': question,
+        'value': value,
+        'grade': grade,
+    }
+
+    return render(request, 'chair_stud_page_second.html', context)
+
+def update_grade(request, grade_id):
+    grade = get_object_or_404(Grade, id=grade_id)
+    value = request.POST.get("value")
+
+    grade.value = value
+    grade.save()
+
+    # if 'grade_data' in request.session:
+    #     # Удаление данных grade_data из сессии
+    #     del request.session['grade_data']
+    #
+    #     # Сериализация и сохранение сессии
+    #     request.session.modified = True
+    #     serialized_data = serializers.serialize('json', [request.session.session_key])
+    #     request.session['serialized_data'] = serialized_data
+    #     request.session.save()
+
+    return redirect('chair_stud_page_second', id=grade.student.id)
 
 count = 0
 def download_document(request, stud_id): #решение ГАК
@@ -544,6 +667,41 @@ def download_document1(request, stud_id): #заседание ГАК
     doc_name = f"{name}_{lastname}_Протокол_1.docx"
     logging.debug("Document name: {}".format(doc_name))
     print(doc_name)
+
+    # Создать HTTP-ответ, который будет содержать созданный документ
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename={doc_name}'
+
+    with io.open(doc_name, 'rb') as file:
+        document_bytes = file.read()
+
+    response['Content-Length'] = len(document_bytes)
+    response.write(document_bytes)
+    return response
+
+def download_document3(request): #ведомость
+    doc = DocxTemplate("bboard2/static/ved.docx")
+
+    global student_ids
+
+    studentss = []
+
+    for student_id in student_ids:
+        student = get_object_or_404(Students, id=student_id)
+        studentss.append({
+            'name': student.name,
+            'lastname': student.lastname,
+            'middlename': student.middlename,
+        })
+
+    context = {
+        'studentss': studentss,
+    }
+
+    doc.render(context)
+
+    doc.save("ведомость.docx")
+    doc_name = "ведомость.docx"
 
     # Создать HTTP-ответ, который будет содержать созданный документ
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')

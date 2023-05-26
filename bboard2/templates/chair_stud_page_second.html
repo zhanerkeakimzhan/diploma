@@ -57,13 +57,35 @@ background: #f2f4fa;
 }
 </style>
 
+
+
+
+<script>
+  function showEditForm() {
+    document.getElementById("editForm").style.display = "table";
+  }
+
+  function hideEditForm() {
+    document.getElementById("editForm").style.display = "none";
+    console.log("hideEditForm() вызвана")
+  }
+</script>
+
+<script>
+  {% if grade %}
+    showEditForm(); // Показать форму редактирования при наличии данных в grade_data
+  {% else %}
+    hideEditForm(); // Скрыть форму редактирования при отсутствии данных в grade_data
+  {% endif %}
+</script>
+
 <div class="container">
     <div id="main">
         <div class="row" id="real-estates-detail">
             <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="{% url 'com_main' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
+                        <a href="{% url 'chair_main' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
                         <header class="panel-title">
                             <div class="text-center">
                                 <strong>Студент туралы ақпарат</strong>
@@ -72,7 +94,6 @@ background: #f2f4fa;
                     </div>
                     <div class="panel-body">
                         <div class="text-center" id="author">
-<!--                            <img width="220px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">-->
                             <img width="220px" src="{{ student.img.url }}">
                             <h3>{{student.lastname}} {{student.name}} {{student.middlename}}</h3>
                             <small class="label label-warning">Бакалавр</small>
@@ -101,9 +122,9 @@ background: #f2f4fa;
                                     <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
                                     <tr><td class="active">Дипломдық жобаның тақырыбы:</td><td>{{student.diploma_title}}</td></tr>
                                     <tr><td class="active">Ғылыми жетекші:</td><td>{{student.advisor}}</td></tr>
-                                    <form method="post" action="{% url 'add_grade' id=student.id %}">
-                                      {% csrf_token %}
-                                        <tr>
+                                     <form method="post" action="{% url 'add_grade' id=student.id %}">
+                                         {% csrf_token %}
+                                         <tr>
                                             <td class="active">
                                               <label for="question_text" style="font-weight: normal;">Сұрақ: </label>
                                             </td>
@@ -113,11 +134,27 @@ background: #f2f4fa;
                                             <td class="active">
                                                 <label for="grade" style="font-weight: normal;">Баға: </label>
                                             </td>
-                                            <td> {{ value }} <br></td>
+                                            <td> {{ value }} <br>
+                                                <button type="button" onclick="showEditForm()">Өзгерту</button></td>
                                         </tr>
+                                     </form>
+
+                                    <form id="editForm" method="post" action="{% url 'update_grade' grade_id=grade.id %}" style="display: none;">
+                                      {% csrf_token %}
+                                        <td class="active">
+                                          <label for="grade" style="font-weight: normal;">Баға: </label>
+                                        </td>
+                                        <td><input type="number" name="value" value="{{ value }}"></td>
+                                      </tr>
+                                      <tr>
+                                        <td colspan="2">
+                                          <button type="submit" onclick="hideEditForm()">Сақтау</button>
+                                          <button type="button" onclick="hideEditForm()">Қайтару</button>
+                                        </td>
+                                      </tr>
                                     </form>
 
-                                    <tr><td class="active">Түсіндірме жазба:</td><td><a href="">Құжатты жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href=""> Құжатты жүктеп алу</a></td></tr>
                                     <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
                                     <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
                                     <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>

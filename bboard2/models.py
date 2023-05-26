@@ -56,19 +56,7 @@ class Commissions(models.Model):
     class Meta:
         verbose_name = 'Commission'
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    commission = models.ForeignKey(Commissions, on_delete=models.CASCADE)
 
-class Grade(models.Model):
-    commission = models.ForeignKey(Commissions, on_delete=models.CASCADE)
-    student = models.ForeignKey(Students, on_delete=models.CASCADE)
-    value = models.IntegerField()
-    question = models.CharField(max_length=100, default='')
-    is_filled = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.commission.name} - {self.student.name} - {self.value}"
 
 class Secretary(models.Model):
     img = models.ImageField(upload_to='images')
@@ -82,6 +70,7 @@ class Secretary(models.Model):
     number = models.CharField('Номер телефона', max_length=12, default='')
     email = models.CharField('Почта', max_length=50, default='')
     initials = models.CharField('Инициалы', max_length=100, default='')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -102,12 +91,29 @@ class Chairmans(models.Model):
     number = models.CharField('Номер телефона', max_length=12, default='')
     email = models.CharField('Почта', max_length=50, default='')
     initials = models.CharField('Инициалы', max_length=100, default='')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = 'Chairman'
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    commission = models.ForeignKey(Commissions, on_delete=models.CASCADE, null=True, blank=True)
+    chairman = models.ForeignKey(Chairmans, on_delete=models.CASCADE, null=True, blank=True)
+
+class Grade(models.Model):
+    commission = models.ForeignKey(Commissions, on_delete=models.CASCADE, null=True, blank=True)
+    chairman = models.ForeignKey(Chairmans, on_delete=models.CASCADE, null=True, blank=True)
+    student = models.ForeignKey(Students, on_delete=models.CASCADE)
+    value = models.IntegerField()
+    question = models.CharField(max_length=100, default='')
+    is_filled = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.commission.name} - {self.student.name} - {self.value}"
 
 class Defense(models.Model):
     start_time = models.TimeField()
