@@ -123,14 +123,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 #     ('en', gettext('English')),
 # )
 
-
-# Основной url для управления медиафайлами
-MEDIA_URL = '/media/'
-
-# Путь хранения картинок
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
