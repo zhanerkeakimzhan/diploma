@@ -97,18 +97,18 @@ background: #f2f4fa;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">Дата рождения:</td><td>{{student.birthday}}</td></tr>
-                                    <tr><td class="active">ИИН:</td><td>{{student.iin}}</td></tr>
-                                    <tr><td class="active">№ удостоверения личности/паспорта:</td><td>{{student.id_card}}</td></tr>
-                                    <tr><td class="active">ОП / Специальность:</td><td>{{student.speciality}}</td></tr>
+                                    <tr><td class="active">Туған күні:</td><td>{{student.birthday}}</td></tr>
+                                    <tr><td class="active">ЖСН:</td><td>{{student.iin}}</td></tr>
+                                    <tr><td class="active">Жеке куәлік/паспорт № :</td><td>{{student.id_card}}</td></tr>
+                                    <tr><td class="active">Білім беру бағдарламасы / Мамандығы:</td><td>{{student.speciality}}</td></tr>
                                     <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
-                                    <tr><td class="active">Тема дипломной работы:</td><td>{{student.diploma_title}}</td></tr>
-                                    <tr><td class="active">Руководитель:</td><td>{{student.advisor}}</td></tr>
-                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href=""> жүктеп алу </a></td></tr>
-                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Скачать презентацию </a></td></tr>
-                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Скачать рецензию</a></td></tr>
-                                    <tr><td class="active">Отзыв руководителя: </td><td><a href="">Скачать отзыв руководителя</a></td></tr>
-                                    <tr><td class="active">Результат антиплагиата: </td><td><a href="">Скачать результаты антиплагиата</a></td></tr>
+                                    <tr><td class="active">Дипломдық жобаның тақырыбы:</td><td>{{student.diploma_title}}</td></tr>
+                                    <tr><td class="active">Ғылыми жетекші:</td><td>{{student.advisor}} <br> {{student.advisor_scientific_degree}}</td></tr>
+                                    <tr><td class="active">Түсіндірме жазба:</td><td><a href=""> Құжатты жүктеп алу </a></td></tr>
+                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
+                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen_diploma' student_id=student.id %}">Рецензияны жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
 
 <!--                                    <tr><td class="active">Бірбәле:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>-->
 <!--                                    <tr><td class="active">Плагин рейтинга:</td><td><a href="https://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>-->
@@ -116,27 +116,27 @@ background: #f2f4fa;
                                         {% csrf_token %}
                                         <tr>
                                             <td class="active">
-                                                <label for="question_text" style="font-weight: normal;">Вопрос:</label>
+                                                <label for="question_text" style="font-weight: normal;">Сұрақ:</label>
                                             </td>
                                             <td colspan="2">
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Введите вопрос" id="question_text" class="form-control" name="question">
+                                                    <input type="text" placeholder="Сұрақты енгізіңіз" id="question_text" class="form-control" name="question">
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="active">
-                                                <label for="grade" style="font-weight: normal;">Оценка:</label>
+                                                <label for="grade" style="font-weight: normal;">Бағалау:</label>
                                             </td>
                                             <td>
                                                 <div class="form-group">
-                                                    <input type="number" placeholder="Введите оценку" id="grade" class="form-control" name="value" min="0" max="100">
+                                                    <input type="number" placeholder="Бағаны енгізіңіз" id="grade" class="form-control" name="value" min="0" max="100">
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
-                                                <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+                                                <button type="submit" class="btn btn-primary btn-block">Сақтау</button>
                                             </td>
                                         </tr>
                                     </form>

@@ -56,3 +56,7 @@ Traceback (most recent call last):
     grade = round(gradee)
 TypeError: type NoneType doesn't define __round__ method
 WARNING:django.request:Not Found: /favicon.ico
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.

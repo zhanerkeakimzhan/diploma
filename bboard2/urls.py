@@ -41,6 +41,7 @@ urlpatterns = [
     path('delete/<int:stud_id>/', views.delete_student, name='delete_student'),
     path('download/<int:stud_id>/', views.download_document, name='download_document'),
     path('download1/<int:stud_id>/', views.download_document1, name='download_document1'),
+    path('download3/', views.download_document3, name='download_document3'),
     path('download_presentation/<int:pk>/', views.download_presentation, name='download_presentation'),
     path('download/diploma/<int:student_id>/', download_diploma, name='download_diploma'),
     path('download/prez_diploma/<int:student_id>/', download_prez_diploma, name='download_prez_diploma'),

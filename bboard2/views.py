@@ -76,6 +76,7 @@ def chair_main(request):
     }
     return render(request, 'chairman_main.html', context)
 
+student_ids = 0
 def students(request):
     query = request.GET.get('date')  # Получение значения фильтрации по дате
 
@@ -90,7 +91,14 @@ def students(request):
         'students': students,
         'date_query': query  # Передача значения фильтрации по дате в контекст
     }
+
+    global student_ids
+    student_ids = [student.id for student in students]
+
+    # return HttpResponse(f"айдишки: {student_ids}")
     return render(request, 'students.html', context)
+
+
 
 def logout_page(request):
     logout(request)
@@ -651,6 +659,41 @@ def download_document1(request, stud_id): #заседание ГАК
     doc_name = f"{name}_{lastname}_Протокол_1.docx"
     logging.debug("Document name: {}".format(doc_name))
     print(doc_name)
+
+    # Создать HTTP-ответ, который будет содержать созданный документ
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename={doc_name}'
+
+    with io.open(doc_name, 'rb') as file:
+        document_bytes = file.read()
+
+    response['Content-Length'] = len(document_bytes)
+    response.write(document_bytes)
+    return response
+
+def download_document3(request): #ведомость
+    doc = DocxTemplate("bboard2/static/ved.docx")
+
+    global student_ids
+
+    studentss = []
+
+    for student_id in student_ids:
+        student = get_object_or_404(Students, id=student_id)
+        studentss.append({
+            'name': student.name,
+            'lastname': student.lastname,
+            'middlename': student.middlename,
+        })
+
+    context = {
+        'studentss': studentss,
+    }
+
+    doc.render(context)
+
+    doc.save("ведомость.docx")
+    doc_name = "ведомость.docx"
 
     # Создать HTTP-ответ, который будет содержать созданный документ
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
