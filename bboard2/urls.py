@@ -1,15 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-
 from bboard2 import views
-from bboard2.views import (
-    download_diploma,
-    download_prez_diploma,
-    download_recen_diploma,
-    download_feedback_diploma,
-    download_antiplagiat,
-)
 
 urlpatterns = [
     path('', views.login_page, name='login'),
@@ -18,7 +10,6 @@ urlpatterns = [
     path('com_main/', views.com_main, name='com_main'),
     path('chair_main/', views.chair_main, name='chair_main'),
     path('forgot/', views.forgot_pw, name='forgot'),
-    path('documents/', views.documents, name='documents'),
     path('student/<int:id>/', views.student_page, name='student_page'),
     path('student_second/<int:id>/', views.student_page_second, name='student_page_second'),
     path('com_student/<int:id>/', views.com_stud_page, name='com_stud_page'),
@@ -34,20 +25,14 @@ urlpatterns = [
     path('commissions/', views.commissions, name='commissions_list'),
     path('com_list/', views.com_list, name='com_list'),
     path('com_page/<int:id>/', views.com_page, name='com_page'),
-    path('documents/', views.documents, name='documents_list'),
-    path('documentssecond/', views.documents_second, name='documents_list_second'),
-    path('documentsthird/', views.documents_third, name='documents_list_third'),
-    path('add/', views.add_student, name='add_students'),
-    path('delete/<int:stud_id>/', views.delete_student, name='delete_student'),
     path('download/<int:stud_id>/', views.download_document, name='download_document'),
     path('download1/<int:stud_id>/', views.download_document1, name='download_document1'),
     path('download3/', views.download_document3, name='download_document3'),
     path('download_presentation/<int:pk>/', views.download_presentation, name='download_presentation'),
-    path('download/diploma/<int:student_id>/', download_diploma, name='download_diploma'),
-    path('download/prez_diploma/<int:student_id>/', download_prez_diploma, name='download_prez_diploma'),
-    path('download/recen_diploma/<int:student_id>/', download_recen_diploma, name='download_recen_diploma'),
-    path('download/feedback_diploma/<int:student_id>/', download_feedback_diploma, name='download_feedback_diploma'),
-    path('download/antiplagiat/<int:student_id>/', download_antiplagiat, name='download_antiplagiat')
+    path('download_diploma/<int:pk>/', views.download_diploma, name='download_diploma'),
+    path('download_recen/<int:pk>/', views.download_recen, name='download_recen'),
+    path('download_feedback/<int:pk>/', views.download_feedback, name='download_feedback'),
+    path('download_antiplagiat/<int:pk>/', views.download_antiplagiat, name='download_antiplagiat'),
 ]
 
 if settings.DEBUG:

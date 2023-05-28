@@ -1,7 +1,6 @@
 from django import forms
 from .models import Defense, Grade
 
-
 class GradeForm(forms.ModelForm):
     class Meta:
         model = Grade

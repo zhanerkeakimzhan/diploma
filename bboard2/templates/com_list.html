@@ -280,6 +280,7 @@
             <th>
 
             </th>
+                        <th>ID</th>
                         <th>Тегі</th>
                         <th>Аты</th>
             			<th>Әкесінің аты</th>
@@ -291,8 +292,8 @@
                     {% for commission in commissions %}
                         <tr>
                             <td>
-
                             </td>
+							<td>{{commission.id}}</td>
 							<td>{{commission.lastname}}</td>
                             <td>{{commission.name}}</td>
                             <td>{{commission.middlename}}</td>

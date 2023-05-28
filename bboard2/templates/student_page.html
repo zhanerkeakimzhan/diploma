@@ -51,7 +51,7 @@ background: #f2f4fa;
  height: 450px;
 }
 .label-warning {
-    background-color: #2776B8;
+    background-color: #566F9E;
 }
 .panel {
     margin-bottom: 0px;
@@ -104,11 +104,11 @@ background: #f2f4fa;
                                     <tr><td class="active">GPA:</td><td>{{student.gpa}}</td></tr>
                                     <tr><td class="active">Дипломдық жобаның тақырыбы:</td><td>{{student.diploma_title}}</td></tr>
                                     <tr><td class="active">Ғылыми жетекші:</td><td>{{student.advisor}} <br> {{student.advisor_scientific_degree}}</td></tr>
-                                    <tr><td class="active">Түсіндірме жазба:</td><td><a href=""> Құжатты жүктеп алу </a></td></tr>
-                                    <tr><td class="active">Презентация:</td><td><a href="{{ download_presentation.url }}"> Презентацияны жүктеп алу </a></td></tr>
-                                    <tr><td class="active">Рецензия: </td><td><a href="">Рецензияны жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
-                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Түсініктеме жазба:</td><td><a href="{% url 'download_diploma' pk=student.id %}"> Құжатты жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Презентация:</td><td><a href="{% url 'download_presentation' pk=student.id %}"> Презентацияны жүктеп алу </a></td></tr>
+                                    <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen' pk=student.id %}">Рецензияны жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="{% url 'download_feedback' pk=student.id %}">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
+                                    <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="{% url 'download_antiplagiat' pk=student.id %}">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
 {#                                    <tr><td class="active">Хаттама 1:</td><td><a href="{% url 'download_document1' stud_id=student.id %}"> 1 Хаттаманы жүктеу </a></td></tr>#}
 {#                                    <tr><td class="active">Хаттама 2:</td><td><a href="{% url 'download_document' stud_id=student.id %}"> 2 Хаттаманы жүктеу  </a></td></tr>#}
                                     </tbody>
@@ -192,7 +192,7 @@ background: #f2f4fa;
 
                                         <tr>
                                             <td colspan="2">
-                                                <button type="submit" class="btn btn-primary btn-block">Сақтау</button>
+                                                <button type="submit" class="btn btn-primary btn-block" style="background-color: #566F9E">Сақтау</button>
                                             </td>
                                         </tr>
                                     </form>
