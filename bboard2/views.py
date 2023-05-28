@@ -680,22 +680,123 @@ def download_document1(request, stud_id): #заседание ГАК
     return response
 
 def download_document3(request): #ведомость
-    doc = DocxTemplate("bboard2/static/ved.docx")
+    doc = DocxTemplate("bboard2/static/statement_kz.docx")
+    commission1 = get_object_or_404(Commissions, id=1)
+    commission2 = get_object_or_404(Commissions, id=2)
+    commission3 = get_object_or_404(Commissions, id=3)
+    commission4 = get_object_or_404(Commissions, id=4)
+    chairman = get_object_or_404(Chairmans, id=1)
+    secretary = get_object_or_404(Secretary, id=1)
+    firstcommision = commission1.lastname + ' ' + commission1.name + ' ' + commission1.middlename
+    secondcommision = commission2.lastname + ' ' + commission2.name + ' ' + commission2.middlename
+    thirdcommision = commission3.lastname + ' ' + commission3.name + ' ' + commission3.middlename
+    fourthcommision = commission4.lastname + ' ' + commission4.name + ' ' + commission4.middlename
+
+    firstchairman = chairman.lastname + ' ' + chairman.name + ' ' + chairman.middlename
+
+    firstinitials = commission1.initials
+    secondinitials = commission2.initials
+    thirdinitials = commission3.initials
+    fourthinitials = commission4.initials
+    fifthinitials = chairman.initials
+    sixthinitials = secretary.initials
+
 
     global student_ids
 
     studentss = []
 
+    countthird = 0
+
     for student_id in student_ids:
         student = get_object_or_404(Students, id=student_id)
+        countthird += 1
+
+        gradee = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
+        grade = round(gradee)
+
+        letter_grade = ' '
+        if 100 >= grade >= 95:
+            letter_grade = 'A'
+        elif 95 > grade >= 90:
+            letter_grade = 'A-'
+        elif 90 > grade >= 85:
+            letter_grade = 'B+'
+        elif 85 > grade >= 80:
+            letter_grade = 'B'
+        elif 80 > grade >= 75:
+            letter_grade = 'B-'
+        elif 75 > grade >= 70:
+            letter_grade = 'C+'
+        elif 70 > grade >= 65:
+            letter_grade = 'C'
+        elif 65 > grade >= 60:
+            letter_grade = 'C-'
+        elif 60 > grade >= 55:
+            letter_grade = 'D+'
+        elif 55 > grade >= 50:
+            letter_grade = 'D'
+        elif 50 > grade >= 25:
+            letter_grade = 'FX'
+        elif 25 > grade >= 0:
+            letter_grade = 'F'
+
+        tgrade = 0
+        if 100 >= grade >=90:
+            tgrade = 5
+        elif 89 >= grade >=75:
+            tgrade = 4
+        elif 74 >= grade >=50:
+            tgrade = 3
+        else:
+            tgrade = 2
+
+        defense = Defense.objects.get(student=student)
+        agrade = defense.text_input
+        rgrade = defense.score
+
+        com1 = Grade.objects.get(commission=1, student=student).value
+        com2 = Grade.objects.get(commission=2, student=student).value
+        com3 = Grade.objects.get(commission=3, student=student).value
+        com4 = Grade.objects.get(commission=4, student=student).value
+        chair1 = Grade.objects.get(chairman=1, student=student).value
+
         studentss.append({
             'name': student.name,
             'lastname': student.lastname,
             'middlename': student.middlename,
+            "grade": grade,
+            "letter_grade": letter_grade,
+            "agrade": agrade,
+            "rgrade": rgrade,
+            "com1": com1,
+            "com2": com2,
+            "com3": com3,
+            "com4": com4,
+            "chair1": chair1,
+            "tgrade": tgrade,
+            "countthird": countthird,
         })
+
+    locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
+    current_time = datetime.datetime.today()
 
     context = {
         'studentss': studentss,
+        "firstcommision": firstcommision,
+        "secondcommision": secondcommision,
+        "thirdcommision": thirdcommision,
+        "fourthcommision": fourthcommision,
+        "firstchairman": firstchairman,
+        "firstinitials": firstinitials,
+        "secondinitials": secondinitials,
+        "thirdinitials": thirdinitials,
+        "fourthinitials": fourthinitials,
+        "fifthinitials": fifthinitials,
+        "sixthinitials": sixthinitials,
+        "day": current_time.day,
+        "month": current_time.strftime('%B'),
+        "year": current_time.year,
     }
 
     doc.render(context)
