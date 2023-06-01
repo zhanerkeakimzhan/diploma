@@ -36,7 +36,7 @@ class Commissions(models.Model):
     lastname = models.CharField('Фамилия', max_length=50)
     middlename = models.CharField('Отчество', max_length=50)
     job = models.CharField('Место работы', max_length=100)
-    scientific_degree = models.CharField('Степень', max_length=100)
+    scientific_degree = models.CharField('Степень', max_length=500)
     number = models.CharField('Номер телефона', max_length=12)
     email = models.CharField('Почта', max_length=50)
     initials = models.CharField('Инициалы', max_length=100)

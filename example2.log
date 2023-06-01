@@ -99,3 +99,5 @@ DEBUG:root:Document name: Алия_Нурмаханова_Протокол_2.docx
 DEBUG:root:Document name: Алия_Нурмаханова_Протокол_1.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
 >>>>>>> 33b77bf7b1f4ecc6a066ab01c83370655a72875f
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
+DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
