@@ -1,0 +1,110 @@
+{% extends 'basic.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
+
+{% block title  %} Комиссия беті - {{commission.lastname}} {{commission.name}} {% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+
+<br><br><br><br><br>
+
+<style>
+body{
+background: #f2f4fa;
+}
+
+#main {
+background: #f2f4fa!important;
+ padding: 20px;
+ -webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ -ms-border-radius: 4px;
+ -o-border-radius: 4px;
+ border-radius: 4px;
+}
+#real-estates-detail #author img {
+ -webkit-border-radius: 100%;
+ -moz-border-radius: 100%;
+ -ms-border-radius: 100%;
+ -o-border-radius: 100%;
+ border-radius: 100%;
+ border: 5px solid #ecf0f1;
+ margin-bottom: 10px;
+}
+#real-estates-detail .sosmed-author i.fa {
+ width: 30px;
+ height: 30px;
+ border: 2px solid #bdc3c7;
+ color: #bdc3c7;
+ padding-top: 6px;
+ margin-top: 10px;
+}
+.panel-default .panel-heading {
+ background-color: #fff;
+}
+#real-estates-detail .slides li img {
+ height: 450px;
+}
+.label-warning {
+    background-color: #2776B8;
+}
+</style>
+
+<div class="container">
+    <div id="main">
+        <div class="row" id="real-estates-detail">
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="{% url 'com_list' %}" class="previous round"><img width="25px" src="{% static 'images/back.png' %}"></a>
+                        <header class="panel-title">
+                            <div class="text-center">
+                                <strong>Комиссия туралы ақпарат</strong>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center" id="author">
+                            <img width="220px" src="{{ chairman.img.url }}">
+                            <h3>{{chairman.lastname}} {{chairman.name}} {{chairman.middlename|default_if_none:""}}</h3>
+                            <small class="label label-warning">Комиссия төрағасы</small>
+                            <h3></h3>
+                            <p class="sosmed-author">
+                            <div class="btn-group">
+<!--                                <a href="#"><button type="button" class="btn btn-sm btn-outline-secondary">Профильді өңдеу</button></a>-->
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="detail">
+                                <br><br>
+                                <table class="table table-th-block">
+                                    <tbody>
+                                    <tr><td class="active">ТАӘ:</td><td>{{chairman.lastname}} {{chairman.name}} {{chairman.middlename|default_if_none:""}}</td></tr>
+                                    <tr><td class="active">Жұмыс орны:</td><td>{{chairman.job}}</td></tr>
+                                    <tr><td class="active">Дәрежесі / лауазымы:</td><td>{{chairman.scientific_degree}}</td></tr>
+                                    <tr><td class="active">Телефон нөмірі:</td><td>{{chairman.number}}</td></tr>
+                                    <tr><td class="active">Электрондық пошта:</td><td>{{chairman.email}}</td></tr>
+                                    </tbody>
+                                </table>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -71,7 +71,7 @@ background: #f2f4fa!important;
                     <div class="panel-body">
                         <div class="text-center" id="author">
                             <img width="220px" src="{{ commission.img.url }}">
-                            <h3>{{commission.lastname}} {{commission.name}} {{commission.middlename}}</h3>
+                            <h3>{{commission.lastname}} {{commission.name}} {{commission.middlename|default_if_none:""}}</h3>
                             <small class="label label-warning">Комиссия мүшесі</small>
                             <h3></h3>
                             <p class="sosmed-author">
@@ -91,7 +91,7 @@ background: #f2f4fa!important;
                                 <br><br>
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">ТАӘ:</td><td>{{commission.lastname}} {{commission.name}} {{commission.middlename}}</td></tr>
+                                    <tr><td class="active">ТАӘ:</td><td>{{commission.lastname}} {{commission.name}} {{commission.middlename|default_if_none:""}}</td></tr>
                                     <tr><td class="active">Жұмыс орны:</td><td>{{commission.job}}</td></tr>
                                     <tr><td class="active">Дәрежесі / лауазымы:</td><td>{{commission.scientific_degree}}</td></tr>
                                     <tr><td class="active">Телефон нөмірі:</td><td>{{commission.number}}</td></tr>

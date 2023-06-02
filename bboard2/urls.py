@@ -25,6 +25,7 @@ urlpatterns = [
     path('commissions/', views.commissions, name='commissions_list'),
     path('com_list/', views.com_list, name='com_list'),
     path('com_page/<int:id>/', views.com_page, name='com_page'),
+    path('chair_page/<int:id>/', views.chair_page, name='chair_page'),
     path('download/<int:stud_id>/', views.download_document, name='download_document'),
     path('download1/<int:stud_id>/', views.download_document1, name='download_document1'),
     path('download3/', views.download_document3, name='download_document3'),
