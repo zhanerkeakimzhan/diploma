@@ -150,11 +150,9 @@ background: #f2f4fa;
                                         </td>
                                         <td>
                                           <input type="number" name="value" id="editValue" value="{{ value }}">
+                                          <button type="submit" style="background-color: #566F9E; color: white; border: none; padding: 5px 10px; cursor: pointer; margin-left: 115px;">Сақтау</button>
+                                          <button type="button" onclick="cancelEdit()" style="background-color: #566F9E; color: white; border: none; padding: 5px 10px; cursor: pointer; ">Қайтару</button>
                                         </td>
-                                            <td colspan="2" style="text-align: center;">
-                                              <button type="submit" class="btn btn-primary btn-block" style="background-color: #566F9E; color: white; border: none; padding: 5px 10px; cursor: pointer;">Сақтау</button>
-                                              <button type="button" class="btn btn-primary btn-block" onclick="cancelEdit()" style="background-color: #566F9E; color: white; border: none; padding: 5px 10px; cursor: pointer;">Қайтару</button>
-                                            </td>
                                       </tr>
                                     </form>
                                     <tr><td class="active">Түсініктеме жазба:</td><td><a href="{% url 'download_diploma' pk=student.id %}"> Құжатты жүктеп алу</a></td></tr>
@@ -162,15 +160,6 @@ background: #f2f4fa;
                                     <tr><td class="active">Рецензия: </td><td><a href="{% url 'download_recen' pk=student.id %}">Рецензияны жүктеп алу</a></td></tr>
                                     <tr><td class="active">Ғылыми жетекшінің пікірі: </td><td><a href="{% url 'download_feedback' pk=student.id %}">Ғылыми жетекшінің пікірін жүктеп алу</a></td></tr>
                                     <tr><td class="active">Плагиатқа қарсы нәтиже: </td><td><a href="{% url 'download_antiplagiat' pk=student.id %}">Плагиатқа қарсы нәтижені жүктеп алу</a></td></tr>
-{#                                    <form method="post" action="{% url 'add_grade_chair' id=student.id %}">#}
-{#                                        {% csrf_token %}#}
-{#                                        <tr id="editButtons" style="display: none;">#}
-{#                                            <td colspan="2" style="text-align: center;">#}
-{#                                              <button type="submit" class="btn btn-primary btn-block" style="background-color: #566F9E; color: white; border: none; padding: 5px 10px; cursor: pointer;">Сақтау</button>#}
-{#                                              <button type="button" class="btn btn-primary btn-block" onclick="cancelEdit()" style="background-color: #566F9E; color: white; border: none; padding: 5px 10px; cursor: pointer;">Қайтару</button>#}
-{#                                            </td>#}
-{#                                        </tr>#}
-{#                                    </form>#}
                                     </tbody>
                                 </table>
                                 <br><br>

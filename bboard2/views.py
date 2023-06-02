@@ -831,7 +831,7 @@ def download_diploma(request, pk):
         document_bytes = file.read()
 
     response = HttpResponse(document_bytes,
-                            content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                            content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{diplomaa.name}"'
     response['Content-Length'] = len(document_bytes)
 
