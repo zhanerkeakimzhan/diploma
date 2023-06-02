@@ -18,7 +18,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 from django.db.models import Avg
 
-
 def login_page(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -446,7 +445,6 @@ def download_document(request, stud_id):  # решение ГАК
     comment = defense.coment
 
     d1 = today.strftime("%d.%m.%Y")
-    # dat = student.date.strftime("%d.%m.%Y")
 
     doc = DocxTemplate("bboard2/static/protocol_2_kz.docx")
 
@@ -495,6 +493,7 @@ def download_document(request, stud_id):  # решение ГАК
     print(doc_name)
 
     # Создать HTTP-ответ, который будет содержать созданный документ
+
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     response['Content-Disposition'] = f'attachment; filename={doc_name}'
 
