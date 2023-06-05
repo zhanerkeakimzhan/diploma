@@ -171,6 +171,7 @@ background: #f2f4fa;
                                                 </td>
                                                 <td><input type="text" placeholder="Мәтінді енгізіңіз" name="text_area" class="form-control" id="text_area"></td>
                                         </div>
+                                        {% if student.group == 'kazakh' %}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <tr><td class="active" width="33.5%">Жауаптардың жалпы сипаттамасы: </td>
@@ -189,6 +190,26 @@ background: #f2f4fa;
                                                     <td name="comment">{{ defense_form.comment }}</td></tr>
                                             </div>
                                         </div>
+                                        {% else %}
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <tr><td class="active" width="33.5%">Жауаптардың жалпы сипаттамасы: </td>
+                                                    <td name="comment_2">{{ defense_form_ru.comment_2 }}</td></tr>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <tr><td class="active" width="33.5%">Білім деңгейі: </td>
+                                                    <td name="comment_3">{{ defense_form_ru.comment_3 }}</td></tr>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <tr><td class="active" width="33.5%">Комиссияның ерекше пікірлері: </td>
+                                                    <td name="comment">{{ defense_form_ru.comment }}</td></tr>
+                                            </div>
+                                        </div>
+                                        {% endif %}
 
                                         <tr>
                                             <td colspan="2">

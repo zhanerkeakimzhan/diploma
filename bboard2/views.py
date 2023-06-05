@@ -2,7 +2,7 @@ import logging
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from pyexpat.errors import messages
-from .forms import DefenseForm
+from .forms import DefenseForm, DefenseFormru
 from .models import Students
 from .models import Defense
 from docxtpl import DocxTemplate
@@ -130,6 +130,8 @@ def student_page(request, id):
             return redirect('student_page_second', id=id)
 
     defense_form = DefenseForm(request.POST or None)
+    defense_form_ru = DefenseFormru(request.POST or None)
+
     if defense_form.is_valid():
         defense = defense_form.save(commit=False)
         defense.student = student
@@ -148,7 +150,8 @@ def student_page(request, id):
     context = {
         'username': auth.get_user(request).username,
         'student': student,
-        'defense_form': defense_form
+        'defense_form': defense_form,
+        'defense_form_ru': defense_form_ru
     }
 
     return render(request, 'student_page.html', context)
@@ -371,7 +374,8 @@ def download_document(request, stud_id):  # решение ГАК
     count += 1
     locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
     current_time = datetime.datetime.today()
-    today = date.today()
+    locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+    current_timee = datetime.datetime.today()
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
     student = get_object_or_404(Students, id=stud_id)
     commission1 = get_object_or_404(Commissions, id=1)
@@ -383,7 +387,10 @@ def download_document(request, stud_id):  # решение ГАК
 
     name = student.name
     lastname = student.lastname
-    middlename = student.middlename
+    if student.middlename is None:
+        middlename = ''
+    else:
+        middlename = student.middlename
     speciality = student.speciality
     gradee = Grade.objects.filter(student=student).aggregate(Avg('value'))['value__avg']
     grade = round(gradee)
@@ -444,15 +451,20 @@ def download_document(request, stud_id):  # решение ГАК
 
     comment = defense.coment
 
-    d1 = today.strftime("%d.%m.%Y")
 
-    doc = DocxTemplate("bboard2/static/protocol_2_kz.docx")
+    if student.group is 'kazakh':
+        doc = DocxTemplate("bboard2/static/protocol_2_kz.docx")
+        month = current_time.strftime('%B')
+    else:
+        doc = DocxTemplate("bboard2/static/protocol_2.docx")
+        month = current_timee.strftime('%B')
+
 
     context = {
         'student': student,
         "number": count,
         "day": current_time.day,
-        "month": current_time.strftime('%B'),
+        "month": month,
         "year": current_time.year,
         "lastname": lastname,
         "name": name,
@@ -469,7 +481,6 @@ def download_document(request, stud_id):  # решение ГАК
         "fourthinitials": fourthinitials,
         "fifthinitials": fifthinitials,
         "sixthinitials": sixthinitials,
-        "d1": d1,
         "starttimehour": starttimehour,
         "starttimeminute": starttimeminute,
         "endtimehour": endtimehour,
@@ -513,6 +524,8 @@ def download_document1(request, stud_id):  # заседание ГАК прот�
     countsecond += 1
     locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
     current_time = datetime.datetime.today()
+    locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+    current_timee = datetime.datetime.today()
     logging.basicConfig(filename='example2.log', level=logging.DEBUG)
     student = get_object_or_404(Students, id=stud_id)
     commission1 = get_object_or_404(Commissions, id=1)
@@ -524,7 +537,10 @@ def download_document1(request, stud_id):  # заседание ГАК прот�
 
     name = student.name
     lastname = student.lastname
-    middlename = student.middlename
+    if student.middlename is None:
+        middlename = ''
+    else:
+        middlename = student.middlename
     speciality = student.speciality
     diplomatitle = student.diploma_title
     advisor = student.advisor
@@ -600,13 +616,20 @@ def download_document1(request, stud_id):  # заседание ГАК прот�
     comment_2 = defense.comment_2
     comment_3 = defense.comment_3
 
-    doc = DocxTemplate("bboard2/static/protocol_1_kz.docx")
+    if student.group is 'kazakh':
+        doc = DocxTemplate("bboard2/static/protocol_1_kz.docx")
+        month = current_time.strftime('%B')
+    else:
+        doc = DocxTemplate("bboard2/static/protocol_1.docx")
+        month = current_timee.strftime('%B')
+
+    # doc = DocxTemplate("bboard2/static/protocol_1_kz.docx")
 
     context = {
         'student': student,
         "number": countsecond,
         "day": current_time.day,
-        "month": current_time.strftime('%B'),
+        "month": month,
         "year": current_time.year,
         "lastname": lastname,
         "name": name,
@@ -752,10 +775,15 @@ def download_document3(request):  # ведомость
         com4 = Grade.objects.get(commission=4, student=student).value
         chair1 = Grade.objects.get(chairman=1, student=student).value
 
+        if student.middlename is None:
+            middlename = ''
+        else:
+            middlename = student.middlename
+
         studentss.append({
             'name': student.name,
             'lastname': student.lastname,
-            'middlename': student.middlename,
+            'middlename': middlename,
             "grade": grade,
             "letter_grade": letter_grade,
             "agrade": agrade,

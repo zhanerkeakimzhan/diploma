@@ -102,3 +102,47 @@ INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\vi
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_1.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+ERROR:django.request:Internal Server Error: /download3/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 751, in download_document3
+    defense = Defense.objects.get(student=student)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+bboard2.models.Defense.DoesNotExist: Defense matching query does not exist.
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /download1/4/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 612, in download_document1
+    if student.group.group == 'kazakh':
+AttributeError: 'str' object has no attribute 'group'
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_1.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Азиз_Юлдашев_Протокол_1.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_2.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_2.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
