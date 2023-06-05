@@ -22,6 +22,7 @@ class Students(models.Model):
     advisor_job = models.CharField('Место работы руководителя', max_length=100, default='')
     advisor_initials = models.CharField('Руководитель инициалы', max_length=100, default='')
     gpa = models.CharField('GPA', max_length=10, default='')
+    group = models.CharField(max_length=50, choices=[('russian', 'Русская группа'), ('kazakh', 'Казахская группа')])
 
     def __str__(self):
         return self.name

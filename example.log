@@ -712,5 +712,10 @@ DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+<<<<<<< HEAD
 WARNING:django.request:Not Found: /download/6/
 WARNING:django.request:Not Found: /download1/6/
+=======
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+>>>>>>> 794e7ef0a3f909138d47265f9989aae98c784fc7

@@ -102,3 +102,110 @@ INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\vi
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_2.docx
 DEBUG:root:Document name: Жанерке_\u04d8кімжан_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_1.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+ERROR:django.request:Internal Server Error: /download3/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 751, in download_document3
+    defense = Defense.objects.get(student=student)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+bboard2.models.Defense.DoesNotExist: Defense matching query does not exist.
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /download1/4/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py", line 612, in download_document1
+    if student.group.group == 'kazakh':
+AttributeError: 'str' object has no attribute 'group'
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_1.docx
+DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Азиз_Юлдашев_Протокол_1.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_2.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_2.docx
+DEBUG:root:Document name: Ерсайын_Ер\u0493азы_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+WARNING:django.request:Not Found: /download1/9/
+ERROR:django.request:Internal Server Error: /student_second/9/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\virtualenv\diploma\bboard2\views.py", line 194, in student_page_second
+    defense = Defense.objects.get(student=student_id)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.DoesNotExist(
+bboard2.models.Defense.DoesNotExist: Defense matching query does not exist.
+ERROR:django.request:Internal Server Error: /add_grade_chair/5/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.StringDataRightTruncation: ОШИБКА:  значение не умещается в тип character varying(100)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\virtualenv\diploma\bboard2\views.py", line 324, in add_grade_chair
+    add_data.save()
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\base.py", line 743, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\base.py", line 780, in save_base
+    updated = self._save_table(
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\base.py", line 885, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\base.py", line 923, in _do_insert
+    return manager._insert(
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\query.py", line 1301, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\sql\compiler.py", line 1441, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\backends\utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\backends\utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\backends\utils.py", line 80, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.DataError: ОШИБКА:  значение не умещается в тип character varying(100)
+
+WARNING:django.request:Not Found: /download1/10/
+WARNING:django.request:Not Found: /download/10/
+WARNING:django.request:Not Found: /download1/10/
+WARNING:django.request:Not Found: /download1/10/
+WARNING:django.request:Not Found: /download1/10/

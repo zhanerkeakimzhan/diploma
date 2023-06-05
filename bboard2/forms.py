@@ -48,3 +48,39 @@ class DefenseForm(forms.ModelForm):
         model = Defense
         fields = ['start_time', 'end_time', 'comment', 'comment_2', 'comment_3']
 
+class DefenseFormru(forms.ModelForm):
+    start_time = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'type': 'time', 'class': 'form-control'}))
+    end_time = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'type': 'time', 'class': 'form-control'}))
+    COMMENT_CHOICES = [
+        ('Таңдаңыз', ' '),
+        ('Очень хорошо', 'Очень хорошо'),
+        ('Отлично', 'Отлично'),
+        ('Удовлетворительно', 'Удовлетворительно'),
+        ('Плохо', 'Плохо'),
+    ]
+
+    COMMENT_CHOICES_2 = [
+        ('Таңдаңыз', ' '),
+        ('Уверенно и правильно', 'Уверенно и правильно'),
+        ('Правильно', 'Правильно'),
+        ('Неуверенно, но правильно', 'Неуверенно, но правильно'),
+        ('Не было отвечено', 'Не было отвечено'),
+
+    ]
+
+    COMMENT_CHOICES_3 = [
+        ('Таңдаңыз', ' '),
+        ('Высокий', 'Высокий'),
+        ('Средний', 'Средний'),
+        ('Низкий', 'Низкий'),
+    ]
+
+    comment = forms.ChoiceField(choices=COMMENT_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    comment_2 = forms.ChoiceField(choices=COMMENT_CHOICES_2, widget=forms.Select(attrs={'class': 'form-control'}))
+    comment_3 = forms.ChoiceField(choices=COMMENT_CHOICES_3, widget=forms.Select(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Defense
+        fields = ['start_time', 'end_time', 'comment', 'comment_2', 'comment_3']
