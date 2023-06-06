@@ -74,7 +74,7 @@ background: #f2f4fa;
                         <div class="text-center" id="author">
 <!--                            <img width="220px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">-->
                             <img width="220px" src="{{ student.img.url }}">
-                            <h3>{{student.lastname}} {{student.name}} {{student.middlename}}</h3>
+                            <h3>{{student.lastname}} {{student.name}} {{student.middlename|default_if_none:""}}</h3>
                             <small class="label label-warning">Бакалавр</small>
                             <h3></h3>
                             <p class="sosmed-author">

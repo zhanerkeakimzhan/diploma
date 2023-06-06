@@ -893,9 +893,11 @@ def forgot_pw(request):
 
 def com_list(request):
     commissionss = Commissions.objects.all()
+    chairmans = Chairmans.objects.all()
     context = {
         'username': auth.get_user(request).username,
-        'commissions': commissionss
+        'commissions': commissionss,
+        'chairmans': chairmans
     }
     return render(request, 'com_list.html', context)
 
@@ -909,3 +911,14 @@ def com_page(request, id):
     }
 
     return render(request, 'com_page.html', context)
+
+
+def chair_page(request, id):
+    chairman = get_object_or_404(Chairmans, id=id)
+
+    context = {
+        'username': auth.get_user(request).username,
+        'chairman': chairman,
+    }
+
+    return render(request, 'chair_page.html', context)

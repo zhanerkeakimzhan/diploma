@@ -307,7 +307,7 @@
                         <tr>
 							<td>{{student.lastname}}</td>
                             <td>{{student.name}}</td>
-                            <td>{{student.middlename}}</td>
+                            <td>{{student.middlename|default_if_none:""}}</td>
                             <td>{{student.iin}}</td>
                             <td>{{student.diploma_title}}</td>
 							<td>{{student.advisor}}, {{student.advisor_scientific_degree}}</td>

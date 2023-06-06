@@ -280,7 +280,6 @@
             <th>
 
             </th>
-                        <th>ID</th>
                         <th>Тегі</th>
                         <th>Аты</th>
             			<th>Әкесінің аты</th>
@@ -293,13 +292,29 @@
                         <tr>
                             <td>
                             </td>
-							<td>{{commission.id}}</td>
 							<td>{{commission.lastname}}</td>
                             <td>{{commission.name}}</td>
-                            <td>{{commission.middlename}}</td>
+                            <td>{{commission.middlename|default_if_none:""}}</td>
                             <td>{{commission.scientific_degree}}</td>
                             <td>
 								<a href="{% url 'com_page' id=commission.id %}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+<!--                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
+<!--                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                {% if chairmans %}
+                    {% for chairman in chairmans %}
+                        <tr>
+                            <td>
+                            </td>
+							<td>{{chairman.lastname}}</td>
+                            <td>{{chairman.name}}</td>
+                            <td>{{chairman.middlename|default_if_none:""}}</td>
+                            <td>{{chairman.scientific_degree}}</td>
+                            <td>
+								<a href="{% url 'chair_page' id=chairman.id %}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 <!--                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
 <!--                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
                             </td>
