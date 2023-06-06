@@ -719,3 +719,9 @@ WARNING:django.request:Not Found: /download1/6/
 DEBUG:root:Document name: Сезім_\u049aамит_Протокол_2.docx
 INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
 >>>>>>> 794e7ef0a3f909138d47265f9989aae98c784fc7
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_2.docx
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_2.docx
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_1.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.

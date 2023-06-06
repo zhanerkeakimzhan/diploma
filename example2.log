@@ -213,3 +213,8 @@ DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
 DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
 DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
 DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_1.docx
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_2.docx
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_1.docx
+DEBUG:root:Document name: Н\u04b1райым_Жана\u049bбай_Протокол_2.docx
+INFO:django.utils.autoreload:D:\Zhanerke Akimzhan\Документы\code\dipl\bboard2\views.py changed, reloading.

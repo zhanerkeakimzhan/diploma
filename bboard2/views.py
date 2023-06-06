@@ -374,8 +374,10 @@ def download_document(request, stud_id):  # решение ГАК
     count += 1
     locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
     current_time = datetime.datetime.today()
+    month_kz = current_time.strftime('%B')
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
     current_timee = datetime.datetime.today()
+    month_ru = current_time.strftime('%B')
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
     student = get_object_or_404(Students, id=stud_id)
     commission1 = get_object_or_404(Commissions, id=1)
@@ -452,12 +454,12 @@ def download_document(request, stud_id):  # решение ГАК
     comment = defense.coment
 
 
-    if student.group is 'kazakh':
+    if student.group == 'kazakh':
         doc = DocxTemplate("bboard2/static/protocol_2_kz.docx")
-        month = current_time.strftime('%B')
+        month = month_kz
     else:
         doc = DocxTemplate("bboard2/static/protocol_2.docx")
-        month = current_timee.strftime('%B')
+        month = month_ru
 
 
     context = {
@@ -524,8 +526,10 @@ def download_document1(request, stud_id):  # заседание ГАК прот�
     countsecond += 1
     locale.setlocale(locale.LC_ALL, 'kk_KZ.UTF-8')
     current_time = datetime.datetime.today()
+    month_kz = current_time.strftime('%B')
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
     current_timee = datetime.datetime.today()
+    month_ru = current_time.strftime('%B')
     logging.basicConfig(filename='example2.log', level=logging.DEBUG)
     student = get_object_or_404(Students, id=stud_id)
     commission1 = get_object_or_404(Commissions, id=1)
@@ -616,12 +620,12 @@ def download_document1(request, stud_id):  # заседание ГАК прот�
     comment_2 = defense.comment_2
     comment_3 = defense.comment_3
 
-    if student.group is 'kazakh':
+    if student.group == 'kazakh':
         doc = DocxTemplate("bboard2/static/protocol_1_kz.docx")
-        month = current_time.strftime('%B')
+        month = month_kz
     else:
         doc = DocxTemplate("bboard2/static/protocol_1.docx")
-        month = current_timee.strftime('%B')
+        month = month_ru
 
     # doc = DocxTemplate("bboard2/static/protocol_1_kz.docx")
 
