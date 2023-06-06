@@ -98,7 +98,7 @@ class Grade(models.Model):
     chairman = models.ForeignKey(Chairmans, on_delete=models.CASCADE, null=True, blank=True)
     student = models.ForeignKey(Students, on_delete=models.CASCADE)
     value = models.IntegerField()
-    question = models.CharField(max_length=100, default='')
+    question = models.CharField(max_length=1000, default='')
     is_filled = models.BooleanField(default=False)
 
     def __str__(self):

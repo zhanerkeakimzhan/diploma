@@ -209,3 +209,7 @@ WARNING:django.request:Not Found: /download/10/
 WARNING:django.request:Not Found: /download1/10/
 WARNING:django.request:Not Found: /download1/10/
 WARNING:django.request:Not Found: /download1/10/
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_1.docx
+DEBUG:root:Document name: \u04d8лішер_Отаров_Протокол_2.docx
